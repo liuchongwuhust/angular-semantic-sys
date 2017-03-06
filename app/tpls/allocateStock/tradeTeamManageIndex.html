@@ -1,0 +1,187 @@
+<div class = "csp_trade_team_manage_html" ng-controller = "tradeTeamManageCtrl" ng-init="tradeTeamManageCtrlInit()">
+  <div class = "csp_allocate_header_div">
+    <label class="allocateheader">CSP分券管理系统</label>
+  </div>
+  <div ng-include = "'../tpls/operMenu/opermenu.html'"></div>
+  <div class="TradeTeam" style="margin-top:70px;margin-left:25px;width:97%;">
+  <div class="ui medium header" > 交易小组管理 </div>
+
+
+
+  <div class = "csp_trade_team_manage_body">
+    <div class = "csp_trade_team_manage_content_div" id = "csp_trade_team_manage_content_div" ng-include = "cspTradeTeamManageLoadPath" onload = "cspTradeTeamManageLoadReady()"></div>
+
+    <div style = "clear: both"></div>
+  </div>
+
+
+
+
+
+          <!-- <div class="ui modal js-team-create-page">
+              <i class="close icon"></i>
+              <div class="header"> 新建小组 </div>
+              <div class="modal-content">
+                  <div style="float:left;">
+                      <div class="ui sub header"> 交易单元 </div>
+                      <div style="width:5px; height:5px"></div>
+
+                  </div>
+                  <div style="float:right;">
+                      <div class="ui sub header"> 小组名称 </div>
+                      <div style="width:5px; height:5px"></div>
+                      <div class="ui input width">
+                          <input class="js-create-team-name" type="text" placeholder="请输入小组名称">
+                      </div>
+                  </div>
+                  <div class="modal table-container">
+                      <table class="ui single line selectable striped table">
+                          <thead id="fix-header">
+                              <tr>
+                                  <th>
+
+                                  </th>
+                                  <th>交易员ID</th>
+                                  <th>交易员姓名</th>
+                                  <th>交易员BP</th>
+                                  <th>杠杆率</th>
+                                  <th>杠杠BP</th>
+                              </tr>
+                          </thead>
+                          <div class="grouped fields2">
+                              <tbody>
+                                  <tr ng-repeat="trader in traders">
+                                      <td>
+                                          <div class="field">
+                                              <div class="ui radio checkbox js-team-create-checkbox" traderid="{{ trader.traderid }}" trid="{{ trader.trid }}" ng-if="$index === 0">
+                                                  <input type="radio" name="trader-check" checked="checked">
+                                                  <label></label>
+                                              </div>
+                                              <div class="ui radio checkbox js-team-create-checkbox" traderid="{{ trader.traderid }}" trid="{{ trader.trid }}" v-else>
+                                                  <input type="radio" name="trader-check">
+                                                  <label></label>
+                                              </div>
+                                          </div>
+
+                                      </td>
+                                      <td>{{ trader.traderid }}</td>
+                                      <td>{{ trader.oname }}</td>
+                                      <td>{{ trader.bp }}</td>
+                                      <td>
+                                          <div class="ui icon input js-trader-bp-heaver" style="width:80px">
+                                              <input type="text" class="js-trader-bp-heaver-input" value="{{ trader.bp_heaver }}">
+                                              <div class="js-bp-change" style="display: none;margin-left: -20px">
+                                                  <div><i class="caret up link icon"></i></div>
+                                                  <div><i class="caret down link icon"></i></div>
+                                              </div>
+                                          </div>
+                                      </td>
+                                      <td>{{ trader.bp * trader.bp_heaver }}</td>
+                                  </tr>
+                              </tbody>
+                          </div>
+                      </table>
+                  </div>
+              </div>
+              <div class="actions lk">
+                  <div class="ui button" v-on:click="updateModalState('js-team-create-page', 'toggle')">取消</div>
+                  <div class="ui green button" ng-click="createTeamConfirm">确定</div>
+              </div>
+          </div> -->
+<!--
+          <div class="ui modal js-team-detail-page">
+              <i class="close icon"></i>
+              <div class="header"> 小组详情 </div>
+              <div class="modal-content">
+                  <div style="float:left;">
+                      <div class="ui sub header"> 交易单元 </div>
+                      <div style="width:5px; height:5px"></div>
+                      <div class="ui disabled input width">
+                          <input class="js-team-detail-trname" type="text" value="{{ singalTeam[0].trname }}">
+                      </div>
+                  </div>
+                  <div style="float:right;">
+                      <div class="ui sub header"> 小组名称 </div>
+                      <div style="width:5px; height:5px"></div>
+                      <div class="ui disabled input width">
+                          <input class="js-team-detail-tname" type="text" value="{{ singalTeam[0].tname }}">
+                      </div>
+                  </div>
+                  <div class="modal table-container">
+                      <table class="ui single line selectable striped table">
+                          <thead id="fix-header">
+                              <tr>
+                                  <th>交易员ID</th>
+                                  <th>交易员姓名</th>
+                                  <th>交易员BP</th>
+                                  <th>杠杆率</th>
+                                  <th>杠杠BP</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr v-for="trader in singalTeam">
+                                  <td>{{ trader.traderid }}</td>
+                                  <td>{{ trader.oname }}</td>
+                                  <td>{{ trader.bp }}</td>
+                                  <td>{{ trader.bp_heaver }}</td>
+                                  <td>{{ trader.bp * trader.bp_heaver }}</td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+              <div class="actions lk">
+                  <div class="ui green button" ng-click="updateModalState('js-team-detail-page', 'toggle')">确定</div>
+              </div>
+          </div> -->
+
+          <!-- <div class="ui small modal js-team-del-page">
+              <i class="close icon"></i>
+              <div class="header"> 提示 </div>
+              <div class="modal-del">
+                  <div>
+                      继续操作将同时删除该交易单元的分券及换券数据，是否继续操作？
+                  </div>
+              </div>
+              <div class="actions lk">
+                  <div class="ui negative button" ng-click="updateModalState('js-team-del-page', 'toggle')">否 </div>
+                  <div class="ui positive right labeled icon button" ng-click="delTeamConfirm">继续操作 <i class="checkmark icon"></i> </div>
+              </div>
+          </div> -->
+
+      </div>
+  </div>
+</div>
+
+</div>
+
+<style type="text/css">
+.allocateheader {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+}
+.csp_allocate_header_div {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 3001;
+  width: 100%;
+  height: 50px;
+  text-align: center;        /*文字水平居中对齐*/
+    line-height: 50px;
+  background-color: black;
+}
+.table-container{
+  height: 82.7%;
+  overflow: auto;
+  margin: 10px 0;
+  box-shadow: 0 0 0 1px #e5e5e5 inset;
+  border-radius: 5px;
+  width: 100%;
+}
+.ui.floating.dropdown.button{
+    margin-left: 0;
+    margin-right: 16px;
+}
+</style>

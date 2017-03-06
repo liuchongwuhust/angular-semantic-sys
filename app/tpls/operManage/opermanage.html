@@ -1,0 +1,146 @@
+<!--/* Copyright (C) 2017 LeHigh Hongking - All Rights Reserved
+ * You may not use, distribute and modify this code for any
+ * purpose unless you receive an official authorization from
+ * ShenZhen LeHigh Hongking Technologies Co., Ltd.
+ *
+ * You should have received a copy of the license with
+ * this file. If not, please write to: admin@hongkingsystem.cn,
+ * or visit: http://hongkingsystem.cn
+ */-->
+<div class = "csp_oper_manage_opermanage_div">
+	<div class="ui huge breadcrumb">
+  		<div class="active section">操作员管理</div>
+	</div>
+	<div class="csp_oper_manage_opermanage_body">
+		<div id = "csp_oper_manage_maid_dropdown" class="ui floating labeled icon dropdown button"  style="z-index:100">
+			<i class="dropdown icon"></i>
+			<span  class="text chooseTrid">请选择资产管理人</span>
+			<div class="menu">
+				<div class="item" data-value = "{{ma.maid}}" ng-repeat="ma in maidList">
+					<span class="text">{{ma.maid + "-" + ma.maname}}</span>
+				</div>
+			</div>
+		</div>
+		<button type="button" class ="ui orange button" ng-click = "cspOperManageSelectOper()" title="查询当前资产管理人下的操作员">查询</button>
+		<button type="button" class ="ui orange button" ng-click = "cspOperManageNewOid()" title="新建操作员">新建</button>
+		<button type="button" class = "ui orange button" ng-click = "cspOperManageRefresh()" title = "刷新资产管理人列表">刷新</button>
+		<div class = "csp_oper_table_div">
+			<table class="ui celled structured unstackable table">
+			  <thead>
+				<tr>
+				  <th class="center aligned">资产管理人</th>
+				  <th class="center aligned">操作员账号</th>
+				  <th class="center aligned">操作员姓名</th>
+				  <th class="center aligned">可用状态</th>
+				  <th class="center aligned">操作</th>
+				</tr>
+			  </thead>
+			  <tbody>
+				  <tr ng-repeat = "o in oidList">
+					  <td class = "center aligned">
+						  {{o.maid +"-"+o.maname}}
+					  </td>
+					  <td class = "center aligned">
+						  {{o.oid}}
+					  </td>
+					  <td class = "center aligned">
+						  {{o.oname}}
+					  </td>
+					  <td class = "center aligned">
+					  {{o.stat == "0" ? "可用" : "冻结"}}
+				  	  </td>
+					  <td class = "center aligned">
+						  <a class = "csp_oper_manage_option_label" title = "编辑操作员" ng-click = "cspOperManageEditOper($index)">编辑</a>
+						  <a class = "csp_oper_manage_option_label" title = "{{o.stat == '0' ? '冻结操作员' : '解冻操作员'}}" ng-click = "cspOperManageChangeOperStat($index)">{{o.stat == "0" ? "冻结" : "解冻"}}</a>
+						  <a class = "csp_oper_manage_option_label" title = "授权为操作员" ng-click = "cspOperManageAuthorizeOper($index)">授权</a>
+						  <a class = "csp_oper_manage_option_label" title = "重置密码" ng-click = "cspOperManageResetPass($index)" >重置密码</a>
+					  </td>
+				  </tr>
+			  </tbody>
+			</table>
+		</div>
+		<div style = "height: 20px;"></div>
+		<div class = "csp_oper_manage_page_div">
+			<div class = "ui horizontal list">
+				<a class = "item csp_oper_manage_middle_item" ng-show = "oidShowPrev" ng-click = "cspOperManageOidLoopToFirst()">首页</a>
+				<a class = "item csp_oper_manage_long_item" ng-show = "oidShowPrev" ng-click = "cspOperManageOidLoopPrev()"><上一页</a>
+				<a ng-class = "{true: 'item csp_oper_manage_active_item', false: 'item csp_oper_manage_item'}[page.select]" ng-repeat = "page in oidPages" ng-click = "cspOperManageOidLoopToPage(page)">{{page.num}}</a>
+				<a class = "item csp_oper_manage_long_item" ng-show = "oidShowNext" ng-click = "cspOperManageOidLoopNext()">下一页></a>
+				<a class = "item csp_oper_manage_middle_item" ng-show = "oidShowNext" ng-click = "cspOperManageOidLoopLast()">尾页</a>
+			</div>
+		</div>
+		<div style = "height: 20px;"></div>
+	</div>
+	<div class = "csp_oper_manage_modal_div" ng-show = "showModal">
+		<div ng-include = "operModalPath" onload = "cspOperManageModalPathLoad()">
+		</div>
+	</div>
+</div>
+<style type = "text/css">
+	.csp_oper_manage_opermanage_div {
+		padding-top: 10px;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	.csp_oper_manage_opermanage_body {
+		margin-top: 10px;
+		padding-left: 10px;
+		padding-top: 10px;
+		padding-right: 10px;
+	}
+	.csp_oper_table_div {
+		margin-top: 10px;
+	}
+	.csp_oper_manage_page_div {
+		display:flex;
+		justify-content:center;
+		align-items:center;
+	}
+	.item.csp_oper_manage_middle_item {
+		line-height: 34px;
+		width: 50px;
+		text-align: center;
+		border: solid 1px #e1e1e1;
+		margin-left: 5px;
+		border-radius: 0;
+	}
+	.item.csp_oper_manage_long_item {
+		line-height: 34px;
+		width: 70px;
+		text-align: center;
+		border: solid 1px #e1e1e1;
+		margin-left: 5px;
+		border-radius: 0;
+	}
+	.item.csp_oper_manage_item {
+		line-height: 34px;
+		min-width: 34px;
+		text-align: center;
+		border: solid 1px #e1e1e1;
+		margin-left: 5px;
+		border-radius: 0;
+	}
+	.item.csp_oper_manage_active_item {
+		line-height: 34px;
+		min-width: 34px;
+		text-align: center;
+		margin-left: 5px;
+		font-weight: bold;
+		color: black;
+		cursor: default;
+	}
+	.csp_oper_manage_option_label {
+		color: blue;
+		cursor: pointer;
+		margin-left: 5px;
+	}
+	.csp_oper_manage_modal_div {
+		position: fixed;
+		left: 0;
+		top: 50px;
+		bottom: 0;
+		right: 0;
+		background-color: rgba(40,40,40,0.2);
+		z-index: 3001;
+	}
+</style>

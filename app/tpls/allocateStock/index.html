@@ -1,0 +1,98 @@
+<div class = "csp_allocate_stock_html" ng-controller = "allocateStockCtrl" ng-init="allocateStockCtrlInit()">
+  <div class = "csp_allocate_header_div">
+
+
+    <a lfttop=window,10 class="btn-sidebar ui button circular icon" style="float:left;margin:10px;"><i class="sidebar icon"></i></a>
+
+    <label class="allocateheader">CSP分券管理系统</label>
+  </div>
+  <div ng-include = "'../tpls/operMenu/opermenu.html'"></div>
+  <!-- <div class="ui vertical menu csp_allocate_menu " >
+
+      <div class="item" style="margin-top:20px;">
+       <div class="header">单元管理</div>
+       <div class="menu " style="margin-left:5px;">
+
+         <a class="item"  ng-click="" href="index2.html#/assetUnit">
+           资产单元管理
+         </a>
+         <a class="item"  ng-click="" href="index2.html#/transactionUnit">
+           交易单元管理
+         </a>
+         <a class="item"  ng-click="" href="index2.html#/transUnitSecurity">
+           交易单元券表
+         </a>
+
+         <a class="item"  ng-click="goTradeTeamManage()">
+           交易小组管理
+         </a>
+
+         <a class="item"  ng-click="goOperManage()">
+           操作员管理
+         </a>
+
+
+       </div>
+     </div>
+     <div class="item" style="margin-top:20px;">
+      <div class="header">分券管理</div>
+      <div class="menu " style="margin-left:5px;">
+        <a class="item"  ng-click="">
+          心愿清单
+        </a>
+        <a class="item"  ng-click="">
+          随机分券
+        </a>
+        <a class="item"  ng-click="">
+          换券
+        </a>
+
+      </div>
+    </div>
+
+    <div class="item">
+     <div class="header " ng-click = "" role="button">
+       <button class="ui button"><<返回</button>
+     </div>
+
+
+    </div>
+
+
+</div> -->
+
+
+
+  <div class = "csp_allocate_body">
+    <div class = "csp_allocate_content_div" id = "csp_allocate_content_div" ng-include = "cspAllocateLoadPath" onload = "cspAllocateLoadReady()"></div>
+    <div style = "clear: both"></div>
+  </div>
+
+</div>
+<style type="text/css">
+.csp_allocate_menu{
+  width: 120px;
+  height: calc(100% - 50px);
+  position: fixed;
+  left: 0;
+  top: 50px;
+  z-index: 3001;
+  margin-top: 0px !important;
+}
+.allocateheader {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+}
+.csp_allocate_header_div {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 3001;
+  width: 100%;
+  height: 50px;
+  text-align: center;        /*文字水平居中对齐*/
+    line-height: 50px;
+  background-color: black;
+}
+</style>

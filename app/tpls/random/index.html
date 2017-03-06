@@ -1,0 +1,244 @@
+<div class = "csp_random_html" ng-controller = "randomCtrl" ng-init="randomInit()">
+  <div class = "csp_allocate_header_div">
+    <label class="allocateheader">CSP分券管理系统</label>
+  </div>
+  <div ng-include = "'../tpls/operMenu/opermenu.html'"></div>
+  <div class="Random" style="margin-top:70px;margin-left:25px;width:97%;">
+    <div class="ui medium header Rd">随机分券</div>
+        <div class="data-container">
+          <div class="ui row">
+            <div style="float: left;">
+              <div class="ui floating labeled icon dropdown button js-trid"  style="z-index:100">
+              <i class="dropdown icon"></i>
+              <span  class="text chooseTrid js_trid">请选择交易单元</span>
+              <div class="menu" ng-class="{true: 'lengthIsLong', false: 'lengthIsShort'}[isActive]">
+                  <div class="item" ng-repeat="caid in model">
+                      <i class="dropdown icon"></i>
+                      <span class="text">{{ caid.title }}</span>
+                      <div class="right menu" ng-if="caid.children !== undefined" ng-class="{true: 'lengthIsLong', false: 'lengthIsShort'}[caid.children.length>5]">
+                          <div class="item" ng-repeat="trid in caid.children" trid="{{trid.trid}}"> {{ trid.title}} </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+       </div>
+       <div style="float: left;">
+         <div class="ui floating labeled icon dropdown button js-tid"  style="z-index:100">
+            <i class="dropdown icon"></i>
+            <span  class="text choose-tid js_tid">单元小组</span>
+            <div class="menu" ng-class="{true: 'lengthIsLong', false: 'lengthIsShort'}[isTidActive]">
+                <div class="item" ng-repeat="item in tidModel">
+                    <span class="text">{{ item.title }}</span>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="ui primary button js-random-div-on-btn" ng-click="randomDivOnBtn()" style="margin-left:10px; ">一键分券 </button>
+    <button class="ui primary button js-clear" ng-click="clearRandom()" >清&nbsp;零 </button>
+    <span>
+          <a class="display-tid js-tid-bp">小组杠杆bp:</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <a class="display-tid js-tid-allocated-value">分券市值:</a>
+          <button class="ui primary button js-random-output" ng-click="randomOutput()" disabled=true> 导&nbsp;&nbsp;出 </button>
+    </span>
+
+            <div class="data">
+                <div class="ui inverted dimmer js-wait-random-div">
+                    <div class="ui text loader" >正在分券，请稍等...</div>
+                </div>
+                <div class="ui small modal js-random-allocated-comfirm">
+                    <div class="header"> 提示 </div>
+                    <div class="modal-allocated">
+                        <i class=" big info circle icon this_page_only"></i>
+                        <span class="point-out-message">
+                          如您不需要叠加上次分券结果，请先清零再进行分券。
+                      </span>
+                    </div>
+                    <div class="actions ll">
+                      <div class="ui negative button" ng-click="updateModalState('js-random-allocated-comfirm', 'hide')">先去清零</div>
+                      <div class="ui positive  button" ng-click="noWishGo()">我已清零/我不需要清零 </div>
+                    </div>
+                </div>
+
+                <div class="ui small modal js-random-false-prompt">
+                    <div class="header"> 提示 </div>
+                    <div class="modal-random-false">
+                        <i class=" big info circle icon this_page_only"></i>
+                        <span class="point-out-message">
+                          分券失败：总杠杆bp不足以容纳本交易单元源券总市值。请前往交易小组管理调整杠杆率。
+                      </span>
+                    </div>
+                    <div class="actions ll">
+                      <div class="ui positive  button" ng-click="updateModalState('js-random-false-prompt', 'hide')">我知道了</div>
+                    </div>
+                </div>
+
+
+                <div class="ui small modal js-someone-no-wishlist">
+                    <div class="header"> 提示 </div>
+                    <div class="modal-someone-no-wishlist">
+                        <i class=" big info circle icon this_page_only"></i>
+                        <span class="point-out-message">
+                          有小伙伴心愿清单为空。您可返回修改心愿清单，或继续分券。
+                      </span>
+                    </div>
+                    <div class="actions ll">
+                      <div class="ui negative button" ng-click="updateModalState('js-someone-no-wishlist', 'hide')">返回</div>
+                      <div class="ui positive button" ng-click="randomAllocatedConfirm()">继续分券</div>
+                    </div>
+                </div>
+                <div class="ui small modal js-choose-random-trid">
+                    <div class="header"> 提示 </div>
+                    <div class="modal-choose-random-trid">
+                        <i class=" big info circle icon this_page_only"></i>
+                        <span class="point-out-message">
+                          请选择分券的单元。
+                      </span>
+                    </div>
+                    <div class="actions ll">
+                      <div class="ui positive button" ng-click="updateModalState('js-choose-random-trid', 'hide')">我这就去选</div>
+                    </div>
+                </div>
+                <div class="ui small modal js-choose-clear-trid">
+                    <div class="header"> 提示 </div>
+                    <div class="modal-choose-clear-trid">
+                        <i class=" big info circle icon this_page_only"></i>
+                        <span class="point-out-message">
+                          请选择清零的单元。
+                      </span>
+                    </div>
+                    <div class="actions ll">
+                      <div class="ui positive button" ng-click="updateModalState('js-choose-clear-trid', 'hide')">我这就去选</div>
+                    </div>
+                </div>
+                <div class="ui small modal js-all-no-wish">
+                    <div class="header"> 提示 </div>
+                    <div class="modal-all-no-wish">
+                        <i class=" big info circle icon this_page_only"></i>
+                        <span class="point-out-message">
+                          大家都没心愿清单，不要为难我分券嘛。
+                      </span>
+                    </div>
+                    <div class="actions ll">
+                      <div class="ui positive button" ng-click="updateModalState('js-all-no-wish', 'hide')">我错了，我去选券</div>
+                    </div>
+                </div>
+                <div class="ui small modal js-clear-random">
+                    <div class="header"> 提示 </div>
+                    <div class="modal-clear-random">
+                        <i class=" big info circle icon this_page_only"></i>
+                        <span class="point-out-message">
+                          确定对本单元进行清零吗？
+                      </span>
+                    </div>
+                    <div class="actions ll">
+                         <div class="ui negative button" ng-click="updateModalState('js-clear-random', 'hide')">返回</div>
+                      <div class="ui positive button" ng-click="clearTrid()">确定</div>
+                    </div>
+                </div>
+                <div class="table-container js-random-results ">
+                    <table class="ui single line selectable striped table" id="js-random-results-table">
+                        <thead id="fix-header js-random-results-header">
+                            <tr>
+                                    <th>序号</th>
+                                    <th>证券代码</th>
+                                    <th>证券名称</th>
+                                    <th>心愿数量</th>
+                                    <th>实际数量</th>
+                            </tr>
+                        </thead>
+                        <tbody class="js-random-results-body" id="results">
+                                <tr ng-repeat="data in randmR">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{data.cid}}</td>
+                                    <td>{{data.cname}}</td>
+                                    <td>{{data.amount}}</td>
+                                    <td>{{data.post_allocated_amount}}</td>
+                                </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+  </div>
+</div>
+
+<style type="text/css">
+.allocateheader {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+}
+.csp_allocate_header_div {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 3001;
+  width: 100%;
+  height: 50px;
+  text-align: center;        /*文字水平居中对齐*/
+    line-height: 50px;
+  background-color: black;
+}
+.Random{
+    height: 100% ;
+    width: 100% ;
+    padding-top:12px;
+     }
+.ui.medium.header.Rd{
+    font-size: 1.5em;
+}
+.js-tid-bp,.js-tid-allocated-value{
+    color:  #FF0000;
+    font-size: 14px;
+    vertical-align:bottom;
+}
+
+.ui.floating.dropdown.button{
+    margin-left: 0;
+    margin-right: 16px;
+}
+
+.ui.button.js-random-output{
+    float: right;
+}
+
+.circle.icon.this_page_only{
+   float:left;
+   width: 42px;
+   height: 42px;
+   margin: 28px 1px 1px 50px;
+}
+.point-out-message{
+   line-height: 5.8;
+   font-size: 14px;
+   text-align: left;
+
+}
+
+.js-random-results-body{
+   text-align:left;
+}
+.ui.small.modal.js-random-allocated-comfirm .js-choose-random-trid{
+   margin-left: -180px;
+   margin-top: -50px;
+}
+
+.table-container {
+    height: 82.7%;
+    overflow: auto;
+    margin: 10px 0;
+    box-shadow: 0 0 0 1px #e5e5e5 inset;
+    border-radius: 5px;
+    width: 100%;
+}
+.lengthIsLong{
+  overflow:auto;
+  height:500%;
+}
+.lengthIsShort{
+
+}
+</style>

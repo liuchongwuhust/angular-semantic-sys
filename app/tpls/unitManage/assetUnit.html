@@ -1,0 +1,146 @@
+<div class="assetManagerDetail">
+
+  <div class="managerContent">
+
+    <div class="orderTitle" ng-show="editingAssetUnit">
+      修改资产单元
+      <i class="close icon" ng-click="cancelOperated()" style="float:right; cursor:pointer;"></i>
+
+    </div>
+    <div class="orderTitle" ng-show="!editingAssetUnit">
+      添加资产单元
+      <i class="close icon" ng-click="cancelOperated()" style="float:right; cursor:pointer;"></i>
+    </div>
+
+
+    <div id="errorMessage" class="ui negative message " style="display:none;">
+      <div class="header">
+        出错啦!
+      </div>
+      <p id="errorReason"></p>
+    </div>
+
+    <br>
+
+    <div class="" style="margin:auto; width:90%;">
+      <!-- <div class="ui input" style="width:100%;">
+        <input type="text"  ng-model="unitManage.unitName" placeholder="资产单元名称">
+      </div>
+      <br><br>
+
+      <select  ng-model="unitManage.selectState" class="ui dropdown" style="width:100%;"
+         ng-options="state.desc for state in allState" ng-change=""></select>
+
+      <br><br>
+
+      <div class="operate">
+
+        <button class="ui button" ng-click="cancelOperatedAssetUnit()" style="float:right;"> 取消 </button>
+        <button class="ui orange button"  title="状态"
+        ng-click="saveOperateAssetUnit(selectState)" >
+          保存
+        </button>
+
+      </div>
+      <br><br> -->
+
+
+      <table class="operateTable">
+        <tbody>
+          <tr>
+            <td>
+              <label class="titleDesc">资产管理人id:</label>
+            </td>
+            <td>
+              <div class="ui input" style="width:100%;">
+                <input type="text"  ng-model="currOperateUnit.maid" readonly="readonly" disabled="disabled" placeholder="资产管理人id">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label class="titleDesc" ng-show="editingAssetUnit">资产单元id:</label>
+              <label class="titleDesc" ng-show="!editingAssetUnit">资产单元编号:</label>
+
+            </td>
+            <td>
+              <div class="ui input" style="width:100%;">
+                <input type="text"  ng-model="currOperateUnit.caid"
+                ng-show="!editingAssetUnit" placeholder="只能为大于0的数字">
+
+                <input type="text"  ng-model="currOperateUnit.caid"
+                disabled="disabled" ng-show="editingAssetUnit" placeholder="只能为大于0的数字">
+
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label class="titleDesc">资产单元名称:</label>
+            </td>
+            <td>
+              <div class="ui input" style="width:100%;">
+                <input type="text"  ng-model="unitManage.unitName" placeholder="资产单元名称">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label class="titleDesc">状态:</label>
+            </td>
+            <td>
+              <select  ng-model="unitManage.selectState" class="ui dropdown" style="width:100%;"
+                 ng-options="state.desc for state in allState" ng-change=""></select>
+            </td>
+          </tr>
+          <tr>
+            <td>
+            </td>
+            <td class='operate'>
+              <button class="ui button" ng-click="cancelOperated()" style="float:right;"> 取消 </button>
+              <button class="ui orange button" ng-click="saveOperateAssetUnit(selectState)" > 保存 </button>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+
+
+  </div>
+
+</div>
+
+<style media="screen">
+  .assetManagerDetail{
+    /*height: 410px;*/
+  }
+  .managerContent{
+    margin: 10px;
+  }
+  .titleDesc{
+    color: #999;
+  }
+  .operateTable{
+    width:100%;
+  }
+  .operateTable td{
+    padding: 5px;
+  }
+
+  .operate .ui.button{
+
+      margin-right: 0px;
+
+  }
+
+  .orderTitle {
+    font-family: "Microsoft YaHei";
+    font-size: 18px;
+    font-weight: bold;
+    padding-top: 10px;
+    margin: 10px;
+  }
+
+</style>

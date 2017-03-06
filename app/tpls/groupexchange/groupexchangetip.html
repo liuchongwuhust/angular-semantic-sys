@@ -1,0 +1,40 @@
+<!--/* Copyright (C) 2017 LeHigh Hongking - All Rights Reserved
+ * You may not use, distribute and modify this code for any
+ * purpose unless you receive an official authorization from
+ * ShenZhen LeHigh Hongking Technologies Co., Ltd.
+ *
+ * You should have received a copy of the license with
+ * this file. If not, please write to: admin@hongkingsystem.cn,
+ * or visit: http://hongkingsystem.cn
+ */-->
+ <div class = "csp_group_exchange_tip_html">
+	 <i class="notched huge inverted blue circle loading icon" id = "csp_group_exchange_loadingIcon" ng-hide = "loadinginfo.error"></i>
+	 <i class="huge inverted blue warning circle icon" id = "csp_group_exchange_errorIcon" ng-show = "loadinginfo.error"></i>
+	 <br>
+	 <label class = "csp_group_exchange_load_label">{{loadinginfo.errorString}}</label>
+ </div>
+ <style type = "text/css">
+	.csp_group_exchange_tip_html {
+		position: fixed;
+		top:50px;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: rgba(250, 250, 250,0);
+		text-align: center;
+		z-index: 3001;
+	}
+	#csp_group_exchange_loadingIcon {
+		margin-top: 200px;
+		margin-bottom: 10px;
+	}
+	#csp_group_exchange_errorIcon {
+		margin-top: 200px;
+		margin-bottom: 10px;
+	}
+	.csp_group_exchange_load_label {
+		color: red;
+		font-size: 18px;
+		font-weight: bold;
+	}
+ </style>

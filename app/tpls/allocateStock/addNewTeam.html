@@ -1,0 +1,106 @@
+<div class="add_new_team">
+
+    <div class="header" style="font-size:1.2em;"> 新建小组 </div>
+
+    <div class="ui inverted divider" style="border-color:orange !important;"></div>
+    <div class="add_new_team_content">
+        <div style="float:left;margin-bottom:20px;">
+            <div class="ui sub header" > 交易单元 </div>
+
+            <div class="trade_team_manage_dropdown" >
+                <div class="ui floating labeled icon dropdown button js-trid-add-new-team"  style="z-index:100">
+                    <i class="dropdown icon"></i>
+                    <span  class="text chooseTrid js_add_new_team" ng-model="chooseTrid">请选择交易单元</span>
+                    <div class="menu">
+                        <div class="item" ng-repeat="caid in model">
+                            <i class="dropdown icon"></i>
+                            <span class="text">{{ caid.title }}</span>
+                            <div class="right menu" ng-if="caid.children !== undefined">
+                                <div class="item" ng-repeat="trid in caid.children" trid="{{trid.trid}}"> {{ trid.title}} </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="float:left;margin-left:20px;">
+            <div class="ui sub header" > 小组名称 </div>
+
+            <div class="ui input width" >
+                <input  ng-model="teamName" placeholder="请输入小组名称">
+            </div>
+        </div>
+
+        <div class="toolbar_item" >
+
+           <button class="creat_team_tips" >{{creatTeamTips}}</button>
+        </div>
+
+
+        <div class=" table-container" style="height:300px;">
+            <table class="ui single line selectable striped table">
+                <thead id="fix-header">
+                    <tr>
+                        <th>
+                          选为组员
+                        </th>
+                        <th>交易员ID</th>
+                        <th>交易员姓名</th>
+                        <th>交易员BP</th>
+                        <th>杠杆率</th>
+                        <th>杠杠BP</th>
+                        <th>选为小组组长</th>
+                    </tr>
+                </thead>
+                <div class="grouped fields2">
+                    <tbody>
+                        <tr ng-repeat="trader in traders">
+                            <td><input type="checkbox" ng-checked="isChecked(trader.traderid)"
+                                ng-click="updateSelection($event,trader.traderid)" />
+                            </td>
+                            <td>{{ trader.traderid }}</td>
+                            <td>{{ trader.oname }}</td>
+                            <td>{{ trader.bp }}</td>
+                            <td>{{trader.bp_heaver}}</td>
+                            <td>{{ trader.bp * trader.bp_heaver }}</td>
+                            <td>
+                              <input type="checkbox" ng-checked="isLeaderChecked(trader.traderid )"
+                                  ng-click="updateSelectionLeader($event,trader.traderid )" />
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </div>
+            </table>
+        </div>
+
+    <div class="actions lk">
+
+        <div class="ui orange button" ng-click="createTeamConfirm(teamName)">确定</div>
+        <div class="ui button" ng-click="noCreateandBack()">取消</div>
+
+    </div>{{selectedTraders}}
+    {{selectedLead}}
+</div>
+</div>
+
+<style type="text/css">
+.table-container{
+  overflow: auto;
+  margin: 10px 0;
+  box-shadow: 0 0 0 1px #e5e5e5 inset;
+  border-radius: 5px;
+  width: 100%;
+  height: 300px;
+}
+.toolbar_item{
+   float:left;
+   margin-left:20px;
+   margin-top: 20px;
+}
+.creat_team_tips{
+  background-color: orange;
+  display: none;
+}
+
+</style>

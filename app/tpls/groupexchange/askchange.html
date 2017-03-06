@@ -1,0 +1,147 @@
+<!--/* Copyright (C) 2017 LeHigh Hongking - All Rights Reserved
+ * You may not use, distribute and modify this code for any
+ * purpose unless you receive an official authorization from
+ * ShenZhen LeHigh Hongking Technologies Co., Ltd.
+ *
+ * You should have received a copy of the license with
+ * this file. If not, please write to: admin@hongkingsystem.cn,
+ * or visit: http://hongkingsystem.cn
+ */-->
+ <div class = "csp_group_ask_change_html">
+	 <div class = "csp_group_ask_change_body">
+		 <h4 class="ui blue header">申请换券</h4>
+		 <div class="csp_group_ask_change_content">
+			 <label>用</label>
+			 <div class = "csp_group_ask_change_lines">
+				 <label class = "csp_group_ask_change_label">证券代码/名称:</label>
+    			 <div class="ui mini input focus csp_group_ask_change_input">
+      		 		<input type="text" placeholder="请输入证券代码" ng-model = "groupchangeinfo.ask_code" ng-change = "cspGroupExchangeAskCodeChange()">
+    			 </div>
+    			 <div class="ui mini input focus csp_group_ask_change_input">
+      		 		<input type="text" placeholder="证券名称" disabled="disabled" readonly="readonly" ng-model = "groupchangeinfo.ask_cname">
+    			 </div>
+			 </div>
+			 <div class = "csp_group_ask_change_lines">
+				 <label class = "csp_group_ask_change_label">证券数量/市值:</label>
+    			 <div class="ui mini input focus csp_group_ask_change_input">
+      		 		<input type="text" placeholder="请输入证券数量" ng-model = "groupchangeinfo.ask_volume" ng-change = "cspGroupExchangeAskNumberChange()">
+    			 </div>
+    			 <div class="ui mini input focus csp_group_ask_change_input">
+      		 		<input type="text" placeholder="证券市值" disabled="disabled" readonly="readonly" ng-model = "groupchangeinfo.ask_value">
+    			 </div>
+			 </div>
+			 <label>
+				 向
+				 <label class = "csp_group_ask_change_group_name_label">{{groupchangeinfo.asked_gname}}</label>
+				 换取：
+			 </label>
+			 <br><br>
+			 <div class = "csp_group_ask_change_lines">
+				 <label class = "csp_group_ask_change_label">证券代码/名称:</label>
+    			 <div class="ui mini input focus csp_group_ask_change_input">
+      		 		<input type="text" placeholder="证券代码" disabled="disabled" readonly="readonly" ng-model = "groupchangeinfo.asked_code">
+    			 </div>
+    			 <div class="ui mini input focus csp_group_ask_change_input">
+      		 		<input type="text" placeholder="证券名称" disabled="disabled" readonly="readonly" ng-model = "groupchangeinfo.asked_cname">
+    			 </div>
+			 </div>
+			 <div class = "csp_group_ask_change_lines">
+				 <label class = "csp_group_ask_change_label">证券数量/市值:</label>
+    			 <div class="ui mini input focus csp_group_ask_change_input">
+      		 		<input type="text" placeholder="请输入证券数量" ng-model = "groupchangeinfo.asked_volume" ng-change = "cspGroupExchangeAskedNumberChange()">
+    			 </div>
+    			 <div class="ui mini input focus csp_group_ask_change_input">
+      		 		<input type="text" placeholder="证券市值" disabled="disabled" readonly="readonly" ng-model = "groupchangeinfo.asked_value">
+    			 </div>
+			 </div>
+		 </div>
+		 <button type="button" class = "ui mini blue button" id = "csp_group_ask_change_ok_btn" ng-click = "cspGroupExchangeAskChangeSure()">申请换券</button>
+		 <button type="button" class = "ui mini button" id = "csp_group_ask_change_cancel_btn" ng-click = "cspGroupExchangeHideModal()">取消</button>
+	 </div>
+	 <div class = "csp_group_ask_change_loading_div" ng-show = "groupchangeinfo.loading">
+		 <i class="big notched inverted blue circle loading icon" id = "csp_group_ask_change_loadingIcon" ng-hide = "groupchangeinfo.error"></i>
+		 <i class="big inverted blue warning circle icon" id = "csp_group_ask_change_errorIcon" ng-show = "groupchangeinfo.error"></i>
+		 <br>
+		 <label class = "csp_group_ask_change_load_label">{{groupchangeinfo.errorString}}</label>
+	 </div>
+ </div>
+ <style type = "text/css">
+	.csp_group_ask_change_html {
+		position: fixed;
+		left: 0;
+		top: 50px;
+		bottom: 0;
+		right: 0;
+		background-color: rgba(40,40,40,0.2);
+		z-index: 3001;
+	}
+	.csp_group_ask_change_body {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		margin-left: -260px;
+		margin-top: -170px;
+		width: 520px;
+		height: 340px;
+		background-color: white;
+		border-radius:10px;
+		padding: 10px;
+	}
+	.csp_group_ask_change_content {
+		padding: 10px;
+	}
+	.csp_group_ask_change_lines {
+		margin-bottom: 12px;
+	}
+	.csp_group_ask_change_label {
+		display: inline-block;
+		width: 100px;
+		text-align: right;
+		font-weight: bold;
+		font-size: 12px;
+	}
+	.ui.mini.input.focus.csp_group_ask_change_input {
+		width: 150px;
+		margin-left: 20px;
+	}
+	.csp_group_ask_change_group_name_label {
+		margin-left: 5px;
+		margin-right: 5px;
+		color: red;
+	}
+	#csp_group_ask_change_ok_btn {
+		margin-left: 150px;
+		width: 90px;
+	}
+	#csp_group_ask_change_cancel_btn {
+		margin-left: 20px;
+		width: 90px;
+	}
+	.csp_group_ask_change_loading_div {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		margin-left: -260px;
+		margin-top: -170px;
+		width: 520px;
+		height: 340px;
+		background-color: rgba(250, 250, 250,0);
+		border-radius:10px;
+		padding: 10px;
+		text-align: center;
+		z-index: 3002;
+	}
+	#csp_group_ask_change_loadingIcon {
+		margin-top: 135px;
+		margin-bottom: 10px;
+	}
+	#csp_group_ask_change_errorIcon {
+		margin-top: 135px;
+		margin-bottom: 10px;
+	}
+	.csp_group_ask_change_load_label {
+		color: red;
+		font-size: 15px;
+		font-weight: bold;
+	}
+ </style>

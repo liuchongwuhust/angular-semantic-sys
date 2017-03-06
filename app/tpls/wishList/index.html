@@ -1,0 +1,273 @@
+<div class = "csp_wish_list_html" ng-controller = "wishListCtrl" ng-init="wishListCtrlInit()">
+  <div class = "csp_allocate_header_div">
+    <label class="allocateheader">CSP分券管理系统</label>
+  </div>
+  <div ng-include = "'../tpls/operMenu/opermenu.html'"></div>
+  <div class="GroupWish" style="margin-top:70px;margin-left:25px;width:97%;">
+    <div class="ui medium header" > 心愿清单 </div>
+    <div class = "csp_wish_list_body">
+      <div class="js-trid-tid-choose" style="margin-bottom:10px;">
+      <div class="ui row">
+        <div style="float: left;">
+          <div class="ui floating labeled icon dropdown button js-trid"  style="z-index:100">
+          <i class="dropdown icon"></i>
+          <span  class="text chooseTrid js_trid">请选择交易单元</span>
+          <div class="menu" ng-class="{true: 'lengthIsLong', false: 'lengthIsShort'}[model.length>5]">
+              <div class="item" ng-repeat="caid in model">
+                  <i class="dropdown icon"></i>
+                  <span class="text">{{ caid.title }}</span>
+                  <div class="right menu" ng-if="caid.children !== undefined" ng-class="{true: 'lengthIsLong', false: 'lengthIsShort'}[caid.children.length>5]">
+                      <div class="item" ng-repeat="trid in caid.children" trid="{{trid.trid}}"> {{ trid.title}} </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+   </div>
+   <div style="float: left;">
+     <div class="ui floating labeled icon dropdown button js-tid"  style="z-index:100">
+        <i class="dropdown icon"></i>
+        <span  class="text choose-tid js_tid">交易单元小组</span>
+        <div class="menu" ng-class="{true: 'lengthIsLong', false: 'lengthIsShort'}[tidModel.length>5]">
+            <div class="item" ng-repeat="item in tidModel">
+                <span class="text">{{ item.title }}</span>
+            </div>
+        </div>
+    </div>
+  </div>
+
+
+
+      </div>
+      <div class="toolbar_item" >
+
+         <button class="wish_list_tips" ></button>
+      </div>
+      </div>
+      <div class="data Gw">
+          <div class="trade-unit-stock">
+          <div class="title" >交易单元总券单</div>
+          <div class="trade-unit-stock-table container table-container">
+              <table class="ui celled striped table" id="left-table">
+                  <thead>
+                      <tr class="js-head-center">
+                          <th>序号</th>
+                          <th>证券代码</th>
+                          <th>证券名称</th>
+                          <th>数量</th>
+                          <th>市值</th>
+                          <th>剩余数量</th>
+                          <th>剩余总市值</th>
+                      </tr>
+                  </thead>
+                  <tbody class="js-left-tbody">
+                  </tbody>
+              </table>
+          </div>
+          </div>
+          <div class="group-wish-list">
+          <div class="js-table-total">
+              <div class="value-box">
+                  <div class="table-value title">小组心愿清单</div>
+                  <div class="table-value js-market-value">市值:0.00</div>
+                  <div class="table-value js-bp-value">BP:0.00</div>
+                  <div class="table-value js-surplusBp-value">剩余杠杆BP:0.00</div>
+              </div>
+              <button class="js-save-btn ui primary button" id="saveDataBtn" ng-click="saveWishLists()" style="margin-bottom:3px;">保存</button>
+          </div>
+          <div class="group-wish-list-table js-table-container" >
+              <table class="ui celled striped table" id="right-table">
+                  <thead class="js-right-head ui-widget-content">
+                      <tr class="js-head-center">
+                          <th>序号</th>
+                          <th>证券代码</th>
+                          <th>证券名称</th>
+                          <th>数量</th>
+                          <th>市值</th>
+                          <th>操作</th>
+                      </tr>
+                  </thead>
+                  <tbody class="js-right-table" >
+
+                  </tbody>
+              </table>
+          </div>
+          </div>
+      </div>
+      <div class="ui small overBP modal">
+          <div class="header">非法操作</div>
+          <div class="content">
+              <p>超过BP值</p>
+          </div>
+          <div class="actions ">
+              <div class="ui two column centered grid">
+                  <div class="ui cancel button"><i class="remove icon"></i>取消</div>
+              </div>
+          </div>
+      </div>
+      <div class="ui inverted dimmer groupWish-view">
+          <div class="ui text loader">Loading...</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style type="text/css">
+.allocateheader {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+}
+.csp_allocate_header_div {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 3001;
+  width: 100%;
+  height: 50px;
+  text-align: center;        /*文字水平居中对齐*/
+    line-height: 50px;
+  background-color: black;
+}
+.table-container{
+  height: 82.7%;
+  overflow: auto;
+  margin: 10px 0;
+  box-shadow: 0 0 0 1px #e5e5e5 inset;
+  border-radius: 5px;
+  width: 100%;
+}
+.ui.floating.dropdown.button{
+    margin-left: 0;
+    margin-right: 16px;
+}
+
+
+.GroupWish{
+    height: 100%;
+    width: 100%;
+    padding-top:12px;
+}
+.data.Gw{
+    height: 96%;
+}
+.js-widget-dropdown{
+    width:100%
+}
+.value-box{
+    width:100%;
+    margin: 0 auto;
+    margin-top: -10px;
+}
+.table-value{
+    float: left;
+    line-height: 27px;
+    font-size:14px;
+    margin: 0 0 0 10px;
+}
+.js-save-btn {
+    float: right;
+}
+.js-right-row .ui.input input,.right-float{
+    text-align: right;
+}
+
+.trade-unit-stock {
+    width: 50%;
+    padding: 0px 15px 0 0;
+    float: left;
+    height: 100%;
+}
+
+.group-wish-list {
+    width: 50%;
+    padding: 0px 0 0 15px;
+    float: left;
+    height: 100%;
+}
+.trade-unit-stock-table{
+    width: 100%;
+    float: left;
+    height: 100%;
+}
+.js-trid-tid-choose{
+    margin-top: 16px;
+    height: 42px;
+}
+.js-table-total {
+    color: #FF0000;
+    text-align: center;
+    height: 42px;
+}
+
+.js-num-change {
+    z-index: 1;
+    margin-left: -20px;
+    width: 18px;
+    display: none;
+}
+
+.js-head-center {
+    text-align: center;
+}
+
+.js-num-right {
+    text-align: right;
+    width:14%
+}
+.js-num-left {
+    text-align: right;
+}
+.js-stock-num{
+    width:100%
+}
+.js-amount-right{
+    width:30%
+}
+.trade-unit-stock-table.container{
+    /*height: 81%;*/
+    height: 400px;
+    overflow: visible;
+
+    margin:0px 0;
+    overflow:auto;
+    box-shadow: 0 0 0 1px #e5e5e5 inset;
+    border-radius: 5px;
+    width:100%;
+}
+
+.js-table-container{
+    /*height: 81%;*/
+    height: 400px;
+    overflow: visible;
+
+    margin:-16px 0 0 0;
+    overflow:auto;
+    box-shadow: 0 0 0 1px #e5e5e5 inset;
+    border-radius: 5px;
+    width:100%;
+}
+
+.title{
+  font-size: 13px;
+  font-family: Microsoft YaHei;
+  color: #4d4d4d;
+  margin-bottom: 8px;
+}
+
+.toolbar_item{
+   float:left;
+
+   margin-top: 10px;
+}
+.wish_list_tips{
+  background-color: orange;
+  display: none;
+}
+.lengthIsLong{
+  overflow:auto;
+  height:500%;
+}
+.lengthIsShort{
+
+}
+</style>

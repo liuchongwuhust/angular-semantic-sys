@@ -1,0 +1,601 @@
+<!--
+/* Copyright (C) 2017 LeHigh Hongking - All Rights Reserved
+ * You may not use, distribute and modify this code for any
+ * purpose unless you receive an official authorization from
+ * ShenZhen LeHigh Hongking Technologies Co., Ltd.
+ *
+ * You should have received a copy of the license with
+ * this file. If not, please write to: admin@hongkingsystem.cn,
+ * or visit: http://hongkingsystem.cn
+ */
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="cspApp" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>客户自助平台</title>
+  <base href="/" >
+  <link rel="stylesheet" type="text/css" href="bower_components/semantic/dist/semantic.min.css"/>
+  <link rel="stylesheet" type="text/css" href="bower_components/jquery/jquery-ui.css"/>
+  <link rel="stylesheet" type="text/css" href="css/flexslider.css" />
+  <link rel="stylesheet" href="css/lobibox.css">
+</head>
+<body ng-controller="AppCtrl" scroll="yes" style="background-color:#F5F5F5;">
+    <div class = "csp_header_containter" style = "display: none" ng-controller = "cspHeaderCtrl" id = "csp_header_containter">
+       <div id="tophead">
+            <div class="ui borderless menu csp_tophead_menu">
+              <div class="topdisply" style="text-align:center;margin-top:10px; ">
+              <a class=" item1 topitem1 " style="padding-left:0px;padding-right:0px;color:#666666;">世纪盛元欢迎您！</a>
+              <a class=" item1 topitem2 " style="padding-left:3px;color:#666666;">了解最新投资咨询，找世纪盛元客户自助平台！</a>
+            </div>
+            <div class="right menu csp_tophead_right_menu">
+                <div class="ui dropdown item  csp_header_userCenter" ng-mousemove = "cspHeaderDropMenuMove()" ng-mouseout = "cspHeaderDropMenuOut()" >
+                    <i class = "user icon" ></i>
+                    <label id="header_username" class = "csp_tophead_label">用户中心</label>
+                    <i class="dropdown icon"></i>
+                    <div class="menu csp_header_dropdown_menu">
+                        <a  class="item item1"  ng-click="goUserCenter(0)">
+                             <i class = "user icon"></i>
+                            <label class = "csp_tophead_label">用户中心</label>
+                        </a>
+                        <a class = "item item1" ng-click="goUserCenter(1)">
+                            <i class = "lock icon"></i>
+                            <label class = "csp_tophead_label">修改密码</label>
+                        </a>
+                        <a class="item item1" ng-click = "cspLoginOut()">
+                            <i class = "power icon"></i>
+                            <label class = "csp_tophead_label">退出登录</label>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="cspphone">
+
+            </div>
+           </div>
+       </div>
+        <div class = "csp_header_menu_container">
+            <div class="ui borderless menu csp_header_menu">
+                <div class = "csp_header_item" ng-click= "cspGoHome()">
+                    <img class = "csp_header_logo" src = "images/sjsylogo.png" title = "世纪盛元" alt = "世纪盛元"/>
+                </div>
+
+          <div class="csp_title">
+                <a  class="item item1 " ng-click= "cspGoHome()" ng-mouseover = "cspHomeOver()" ng-mouseout = "cspHomeOut()">
+                    <label class = "csp_header_label" id = "csp_header_home_label">网站首页</label>
+                </a>
+          </div>
+          <div class="csp_title">
+                <a class="item item1 " ng-click= "cspGoProducts()" ng-mouseover = "cspProductOver()" ng-mouseout = "cspProductOut()">
+                    <label class = "csp_header_label" id = "csp_header_product_label">产品详情</label>
+                </a>
+          </div>
+
+          <div id="product0BigBtn" class="csp_title" style="display:none;">
+
+                <a class="item item1 " ng-click= "cspGoOtherProducts()" ng-mouseover = "cspProductOver0()" ng-mouseout = "cspProductOut0()">
+                    <label class = "csp_header_label" id = "csp_header_product0_label">策略产品</label>
+                </a>
+          </div>
+          <div class="csp_title">
+                <a class="item item1 " ng-click="goToComment()" ng-mouseover = "cspCommentOver()" ng-mouseout = "cspCommentOut()">
+                  <label class = "csp_header_label" id = "csp_header_comment_label" >留言评论</label>
+              </a>
+          </div>
+
+
+
+                <!-- <div class = "item csp_header_right_item" >
+                  <button class="ui icon button">
+                   <i class="list layout icon"></i>
+                  </button>
+                  <div class="ui inverted vertical menu">
+                    <a class="item item1" ng-click= "cspGoHome()" ng-mouseover = "cspHomeOver()" ng-mouseout = "cspHomeOut()">
+                        <label class = "csp_header_label" id = "csp_header_home_label">网站首页</label>
+                    </a>
+                    <a class="item item1" ng-click= "cspGoProducts()" ng-mouseover = "cspProductOver()" ng-mouseout = "cspProductOut()">
+                        <label class = "csp_header_label" id = "csp_header_product_label">产品详情</label>
+                    </a>
+
+                    <a class="item item1" ng-click= "cspGoOtherProducts()" ng-mouseover = "cspProductOver0()" ng-mouseout = "cspProductOut0()">
+                        <label class = "csp_header_label" id = "csp_header_product0_label">策略产品</label>
+                    </a>
+                    <a class="item item1" ng-click="goToComment()" ng-mouseover = "cspCommentOver()" ng-mouseout = "cspCommentOut()">
+                      <label class = "csp_header_label" id = "csp_header_comment_label" >留言评论</label>
+                  </a>
+                  </div>
+                </div> -->
+
+
+            </div>
+        </div>
+
+
+        <div class = "csp_header_menu_container2">
+                    <div class="ui borderless menu csp_header_menu2">
+                        <div class = "csp_header_item2" ng-click= "cspGoHome()">
+                            <img class = "csp_header_logo2" src = "images/sjsylogo.png" title = "世纪盛元" alt = "世纪盛元"/>
+                        </div>
+                      <div class="csp_title2">
+                        <a class="item item1" ng-click= "cspGoHome()" ng-mouseover = "cspHomeOver2()" ng-mouseout = "cspHomeOut2()" >
+                            <label class = "csp_header_label2" id = "csp_header_home_label2">网站首页</label>
+                        </a>
+                      </div>
+                      <div class="csp_title2">
+                        <a class="item item1" ng-click= "cspGoProducts()" ng-mouseover = "cspProductOver2()" ng-mouseout = "cspProductOut2()" >
+                            <label class = "csp_header_label2" id = "csp_header_product_label2">产品详情</label>
+                        </a>
+                      </div>
+                        <div id="product0Btn" class="csp_title2" style="display:none;">
+
+                        <a class="item item1" ng-click= "cspGoOtherProducts()" ng-mouseover = "cspProductOver02()" ng-mouseout = "cspProductOut02()" >
+                            <label class = "csp_header_label2" id = "csp_header_product0_label2">策略产品</label>
+                        </a>
+                      </div>
+                      <div class="csp_title2">
+                        <a class="item item1" ng-click="goToComment()" ng-mouseover = "cspCommentOver2()" ng-mouseout = "cspCommentOut2()">
+                            <label class = "csp_header_label2" id = "csp_header_comment_label2" >留言评论</label>
+                        </a>
+                      </div>
+
+
+
+                        <!-- <div class = "item csp_header_right_item2" > </div> -->
+                    </div>
+        </div>
+
+    </div>
+    <div id = "homeSpaceDiv_37px" style ="height:37px"></div>
+    <div id="uiView" ui-view style = "width:100%;min-height: 80%; background-color:#F5F5F5;"></div >
+    <div id="csp_footer" class = "csp_footer" >
+        <div style = "height: 50px"></div>
+        <div class="footer_content">
+            <div class = "csp_info">
+                <font color = "#ffffff">
+                   <b>深圳市世纪盛元资产管理有限公司</b>
+                   <br/>
+                   <b>深圳市南山区高新南五道金证科技大楼七层</b>
+                   <br/><br/>
+                   邮编：518057<br/>
+                   电话：0755-86616628<br/>
+                   传真：0755-86616628<br/>
+                   E-mail：info@smartalpha.cn
+                </font>
+            </div>
+            <div class = "csp_weixin_logo"></div>
+        </div>
+       <div style = "height: 50px;clear:both"></div>
+    </div>
+</body>
+<style type = "text/css">
+
+    #tophead{
+      font-size: 14px;
+      width: 100%;
+      height: 41px;
+      border-bottom: 1px solid #f5f5f5;
+      background: #fff;
+
+      position: relative;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+
+    }
+
+   .csp_title{
+     margin-top: 24px;
+     display: block;
+   }
+
+   .csp_title2{
+     margin-top: 9px;
+
+   }
+   .ui.borderless.menu.csp_tophead_menu {
+       width: 1200px;
+       height: 40px;
+       border: none;
+       box-shadow: 0 1px #eeeef8;
+       margin: 0 auto;
+
+   }
+
+   .right.menu.csp_tophead_right_menu {
+       margin-right: 10px;
+       cursor: pointer;
+   }
+
+   .csp_tophead_label{
+     font-size: 14px;
+     font-family: "Microsoft YaHei";
+     cursor: pointer;
+     color: #4a4a4c;
+   }
+
+   .topitem1{
+     margin-left: 0px;
+     padding-left: 0px;
+     padding-right: 3px;
+   }
+
+   .topitem1:hover{
+     background-color: #fff;
+   }
+
+   .topitem2{
+
+     padding-left: 6px;
+     padding-right: 3px;
+   }
+
+   .topitem2:hover{
+     background-color: #fff;
+   }
+
+  /*.csp_header_dropdown_menu {
+    border-left: 1px solid #d7d7ed;
+    border-right: 1px solid #d7d7ed;
+  }*/
+
+
+
+
+    .csp_header_containter {
+        width: 100%;
+        height: 94px;
+        position: relative;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        background-color: white;
+        /*display: block;*/
+    }
+    .csp_header_menu_container2 {
+        width: 100%;
+        height: 56px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 60;
+        background-color: white;
+        display: none;
+        /*background: rgba(255, 255, 255, 0.94);*/
+        opacity: 0.94;
+        /*display: block;*/
+    }
+
+    .csp_header_menu_container {
+        width: 100%;
+        background: #fff;
+    }
+    .csp_header_logo {
+        width: 190px;
+        height:auto;
+        margin-top: 22px;
+    }
+    .csp_header_logo2 {
+        width: 150px;
+        height:auto;
+        margin-top: 10px;
+    }
+
+    .ui.borderless.menu.csp_header_menu {
+        width: 1200px;
+        height: 90px;
+        border: none;
+        margin: 0 auto;
+        box-shadow: 0 0 0 0 !important;
+        border-radius: 0;
+    }
+    .ui.borderless.menu.csp_header_menu2 {
+        width: 1200px;
+        height: 56px;
+        border: none;
+        margin: 0 auto;
+        box-shadow: 0 0 0 0;
+        border-radius: 0;
+    }
+
+    /*.csp_header_dropdown_menu {
+        padding-top: 10px;
+        text-align: center;
+        position: absolute;
+
+    }*/
+
+    /** {
+          background: #000 !important;
+          color: #0f0 !important;
+          outline: solid #f00 1px !important;
+      }*/
+    .ui.right.menu.csp_header_right_menu {
+        margin-right: 20%;
+        cursor: pointer;
+    }
+    .csp_footer {
+        width: 100%;
+        min-height: 20%;
+        /*background-color: #0d357f;*/
+        background-color: #262a30;
+        background-image:url("images/footer.png")
+    }
+    .footer_content{
+      width:1200px;
+      margin:0 auto;
+
+    }
+
+    .csp_info {
+        float: left;
+        /*margin-left: 20%;*/
+        /*width: 390px;*/
+        height: 160px;
+    }
+    .csp_weixin_logo {
+        float: right;
+        /*margin-right: 20%;*/
+        width: 160px;
+        height: 160px;
+        background-image: url("images/weixinsjsy.png")
+    }
+
+    .csp_header_label {
+        font-size: 16px;
+        font-family: "Microsoft YaHei";
+        cursor: pointer;
+    }
+
+    .csp_header_label2 {
+        font-size: 14px;
+        font-family: "Microsoft YaHei";
+        cursor: pointer;
+        color: #666666;
+    }
+    .csp_header_userCenter {
+        min-width:150px;
+        max-width:200px;
+
+    }
+    .csp_header_active_label {
+        font-size: 16px;
+        font-family: "Microsoft YaHei";
+        cursor: pointer;
+        color: #b28956;
+
+    }
+    .csp_header_active_label2 {
+        font-size: 14px;
+        font-family: "Microsoft YaHei";
+        cursor: pointer;
+        color: #b28956;
+
+    }
+    .csp_header_over_label {
+        font-size: 16px;
+        font-family: "Microsoft YaHei";
+        cursor: pointer;
+        color: #b28956;
+    }
+
+    .csp_header_over_label2 {
+        font-size: 14px;
+        font-family: "Microsoft YaHei";
+        cursor: pointer;
+        color: #b28956;
+    }
+
+
+    @media screen and (min-width: 1201px) {
+
+        .csp_header_item {
+            float: left;
+            width: 220px;
+            height: 90px;
+            /*margin-left: calc(20% - 190px);*/
+        }
+        .csp_header_item2 {
+            float: left;
+            width: 190px;
+            height: 56px;
+            /*margin-left: calc(20% - 190px);*/
+        }
+        .item.csp_header_right_item {
+            width: 20%;
+            float: right;
+        }
+        .ui.right.menu.csp_header_right_menu {
+            margin-right: 20%;
+        }
+        .topdisply{
+          display: block;
+        }
+    }
+    @media screen and (max-width: 1200px) {
+      .topdisply{
+        display: block;
+      }
+        .csp_header_item {
+            float: left;
+            width: 190px;
+            height: 90px;
+            /*margin-left: 2.5%;*/
+        }
+        .csp_header_item2 {
+            float: left;
+            width: 190px;
+            height: 56px;
+            /*margin-left: 2.5%;*/
+        }
+        .item.csp_header_right_item {
+            width: 20%;
+            float: right;
+        }
+        .ui.right.menu.csp_header_right_menu {
+            margin-right: 20%;
+        }
+        .footer_content{
+          width:95%;
+        }
+
+              .ui.borderless.menu.csp_tophead_menu {
+                  width:95%;
+              }
+              .ui.borderless.menu.csp_header_menu {
+                  width: 95%;
+
+              }
+              .ui.borderless.menu.csp_header_menu2 {
+                  width:95%;
+
+              }
+    }
+    @media screen and (max-width: 960px) {
+      .topdisply{
+        display: block;
+      }
+
+      .ui.borderless.menu.csp_tophead_menu {
+          width:95%;
+      }
+      .ui.borderless.menu.csp_header_menu {
+          width: 95%;
+
+      }
+      .ui.borderless.menu.csp_header_menu2 {
+          width:95%;
+
+      }
+
+        .csp_header_item {
+            float: left;
+            width: 190px;
+            height: 90px;
+            /*margin-left: 2.5%;*/
+        }
+        .csp_header_item2 {
+            float: left;
+            width: 190px;
+            height: 56px;
+            /*margin-left: 2.5%;*/
+        }
+        .item.csp_header_right_item {
+            width: 20%;
+            float: right;
+        }
+        .ui.right.menu.csp_header_right_menu {
+            margin-right: 20%;
+        }
+        .footer_content{
+          width:95%;
+        }
+    }
+    @media screen and (max-width: 650px) {
+
+      /*.csp_title>a.item.item1{
+        padding: 13px 8px !important;
+      }*/
+      /*.csp_title2>a.item.item1{
+        padding: 13px 16px !important;
+      }*/
+      .topdisply{
+        display: none;
+      }
+
+      .footer_content{
+        width:95%;
+      }
+
+      .ui.borderless.menu.csp_tophead_menu {
+          width:95%;
+      }
+      .ui.borderless.menu.csp_header_menu {
+          width: 95%;
+
+      }
+      .ui.borderless.menu.csp_header_menu2 {
+          width:95%;
+
+      }
+      .csp_info {
+          float: none;
+          width: 100%;
+      }
+      .csp_weixin_logo {
+          float: none;
+      }
+
+        .csp_header_item {
+            display: none
+        }
+        .csp_header_item2 {
+            display: none
+        }
+        .item.csp_header_right_item {
+            width: 2.5%;
+            float: right;
+        }
+        .ui.right.menu.csp_header_right_menu {
+            margin-right: 2.5%;
+        }
+    }
+
+    @media screen and (max-width: 400px) {
+
+
+      .csp_title>a.item.item1{
+        padding: 13px 8px !important;
+      }
+
+      .csp_title2>a.item.item1{
+        padding: 13px 13px !important;
+      }
+      .topdisply{
+        display: none;
+      }
+
+
+
+      .footer_content{
+        width:95%;
+      }
+
+        .csp_header_item {
+            display: none
+        }
+        .csp_header_item2 {
+            display: none
+        }
+        .item.csp_header_right_item {
+            width: 2.5%;
+            float: right;
+        }
+        .ui.right.menu.csp_header_right_menu {
+            margin-right: 2.5%;
+        }
+        .ui.borderless.menu.csp_header_menu2 {
+            width:100%;
+
+        }
+    }
+</style>
+
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/jquery/jquery-ui.js"></script>
+<script src="bower_components/semantic/dist/semantic.min.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
+<script src="lib/jquery.flexslider-min.js"></script>
+<script src="lib/notifications.js"></script>
+<script src="javascript/csp.js"></script>
+<script src="bower_components/oclazyload/dist/ocLazyLoad.js"></script>
+
+
+<!-- <script src="lib/echarts.js"></script> -->
+
+<!-- <script type="text/javascript" charset="utf-8" src="lib/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="lib/editor_api.js"></script> -->
+</html>

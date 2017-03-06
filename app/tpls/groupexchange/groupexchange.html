@@ -1,0 +1,134 @@
+<!--/* Copyright (C) 2017 LeHigh Hongking - All Rights Reserved
+ * You may not use, distribute and modify this code for any
+ * purpose unless you receive an official authorization from
+ * ShenZhen LeHigh Hongking Technologies Co., Ltd.
+ *
+ * You should have received a copy of the license with
+ * this file. If not, please write to: admin@hongkingsystem.cn,
+ * or visit: http://hongkingsystem.cn
+ */-->
+ <div class = "csp_group_change_html">
+	 <div class="ui huge breadcrumb">
+   		<div class="active section">组间换券</div>
+ 	</div>
+	<div class = "csp_group_change_body">
+		<div class="ui floating labeled icon dropdown button "  style="z-index:100" id = "csp_group_exchange_float_dropdown">
+			<i class="dropdown icon"></i>
+			<span  class="text chooseTrid">请选择交易单元</span>
+			<div class="menu">
+				<div class="item" ng-repeat="caid in gidtreegroups">
+					<i class="dropdown icon"></i>
+					<span class="text">{{ caid.caname }}</span>
+					<div class="right menu" ng-if="caid.children.length > 0">
+						<div class="item" ng-repeat="trid in caid.children" data-value = "{{trid.gid}}"> {{ trid.trname}} </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<button type="button" class="ui orange button" ng-click = "">导出</button>
+		<br><br>
+		<div class = "csp_group_change_table_all">
+            <div class = "csp_group_change_table_left">
+                <label style = "margin-right:20px;">小组券单</label>
+                <label class = "csp_red_label">分券市值：{{allocate_total_amt}}</label>
+                <label class = "csp_red_label">当前市值：{{available_total_amt}}</label>
+                <label class = "csp_red_label">杠杆bp：{{total_heaver_bp}}</label>
+                <br><br>
+                <div class="csp_group_change_table">
+                    <table class="ui striped small table" >
+                        <thead >
+                            <th class="center aligned">证券代码</th>
+                            <th class="center aligned">证券名称</th>
+                            <th class="center aligned">分券数量<br>分券市值</th>
+                            <th class="center aligned">当前数量<br>当前市值</th>
+                            <th class="center aligned">状态</th>
+                        </thead>
+                        <tbody >
+                            <tr id = "{{'as_' + $index}}" ng-repeat = "as in allocateSecurities" ng-mouseenter = "cspHoldtr($index)">
+                                <td class="center aligned">{{as.code}}</td>
+                                <td class="center aligned">{{as.cname}}</td>
+                                <td class="center aligned">{{as.post_allocated_vol}}<br>{{as.post_allocated_amt}}</td>
+                                <td class="center aligned">{{as.available_vol}}<br>{{ as.available_amt}}</td>
+                                <td class="center aligned">
+                                    <i class="red large time icon" ng-show = "as.stat == 2"></i>
+                                    <label style = "color:#9f3a38" ng-show = "as.stat == 2">等待换券</label>
+                                    <i class = "teal large check circle outline icon" ng-show = "as.stat == 1 "></i>
+                                    <label style = "color:teal" ng-show = "as.stat == 1">换券成功</label>
+                                    <i class = "green large info circle link icon " ng-show = "as.stat == 3"></i>
+                                    <a class = "csp_group_exchange_green_link" ng-show = "as.stat == 3" ng-click = "cspGroupExchangeReadNews($index)">{{as.newscount}}新消息</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class = "csp_group_change_table_right">
+                <label style = "margin-right:20px;">公共券池</label>
+                <br><br>
+                <div class="csp_group_change_table" id = "csp_group_change_table">
+                    <table class="ui striped small table">
+                        <thead >
+                            <th class="center aligned">小组名称</th>
+                            <th class="center aligned">证券代码</th>
+                            <th class="center aligned">证券名称</th>
+                            <th class="center aligned">数量</th>
+                            <th class="center aligned">市值</th>
+                            <th class="center aligned">操作</th>
+                        </thead>
+                        <tbody >
+                            <tr ng-repeat = "cs in changeSecurities">
+                                <td class="center aligned">{{cs.gname}}</td>
+                                <td class="center aligned">{{cs.code}}</td>
+                                <td class="center aligned">{{cs.cname}}</td>
+                                <td class="center aligned">{{cs.post_exchange_vol}}</td>
+                                <td class="center aligned">{{cs.post_exchange_amt}}</td>
+                                <td class="center aligned">
+                                    <i class="outline large trash icon link icon" ng-show = "gid == cs.gid" title="撤销" ng-click = "cspGroupExchangeDeleteExchange($index)"></i>
+                                    <i class="outline orange large exchange link icon" ng-hide = "gid == cs.gid" title = "申请换券" ng-click = "cspGroupExchangeAskChange($index)"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <span style="clear: both"></span>
+		</div>
+	</div>
+ </div>
+ <style type = "text/css">
+	.csp_group_change_html {
+		padding-left: 10px;
+		padding-top: 60px;
+		padding-right: 10px;
+		padding-bottom: 10px;
+	}
+	.csp_group_change_body {
+		padding-left: 20px;
+		padding-top: 10px;
+		padding-right: 20px;
+		padding-bottom: 10px;
+	}
+    .csp_red_label {
+        color: red;
+        margin-right: 20px;
+    }
+	.csp_group_change_table_all {
+        width: 100%;
+	}
+    .csp_group_change_table_left {
+        float: left;
+        width: calc(50% - 10px);
+    }
+    .csp_group_change_table_right {
+        margin-left: calc(50% + 20px);
+    }
+    .csp_group_change_table {
+        height: 400px;
+        overflow-y: auto;
+        border: solid 1px rgba(34,36,38,0.15);
+    }
+    .csp_group_exchange_green_link {
+        color: green;
+        cursor: pointer;
+    }
+ </style>

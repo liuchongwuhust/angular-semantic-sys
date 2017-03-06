@@ -1,0 +1,154 @@
+<!--/* Copyright (C) 2017 LeHigh Hongking - All Rights Reserved
+ * You may not use, distribute and modify this code for any
+ * purpose unless you receive an official authorization from
+ * ShenZhen LeHigh Hongking Technologies Co., Ltd.
+ *
+ * You should have received a copy of the license with
+ * this file. If not, please write to: admin@hongkingsystem.cn,
+ * or visit: http://hongkingsystem.cn
+ */-->
+<div class="" ng-controller="unitManageCtrl" ng-init="unitManageInit()">
+
+  <div class = "csp_manage_header_div">
+    <label class="manageheader">CSP后台管理系统</label>
+  </div>
+  <div class="" ng-include="'tpls/operMenu/opermenu.html'">
+
+  </div>
+  <div class="unitManageContent">
+    <div class="" style="height:50px;">
+
+    </div>
+    <div class="ui input">
+      <input type="text" placeholder="请输入要查询的单元编号或单元名称" ng-model="searchField" ng-keyup="enterSearch($event)">
+    </div>
+    <button class="ui  button" ng-click="refresh()" > 刷新 </button>
+    <!-- <br><br> -->
+
+    <div class="">
+      <table class="ui celled table">
+        <caption class="ui header">单元管理</caption>
+        <thead>
+          <tr>
+            <th>单元编号</th>
+            <th>单元名称</th>
+            <th>状态</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="unitTr" ng-repeat="singleUnit in unitManage.allUnits" ng-show="singleUnit.show"
+           ng-class="{'findedtr':singleUnit.find}">
+            <td ng-click="clickUnit(singleUnit)">
+              <div ng-class="{'aseetUnitDiv':singleUnit.type==2,'transaUnitDiv':singleUnit.type==3}">
+                <img src="/images/ITreeFold.png"  style="opacity:0;" ng-show="singleUnit.addAssetUnit"></img>
+                <img src="/images/ITreeUnFold.png" class="cursorPointer" style="vertical-align:middle;"  ng-show="!singleUnit.showChild&&singleUnit.type!=3&&!singleUnit.addAssetUnit"></img>
+                <img src="/images/ITreeFold.png"   class="cursorPointer" style="vertical-align:middle;" ng-show="singleUnit.showChild&&singleUnit.type!=3&&!singleUnit.addAssetUnit"></img>
+
+
+
+                <img src="/images/unit_list_zcgly.png" alt="" style="vertical-align:middle;"  ng-show="singleUnit.type==1">
+                <img src="/images/unit_list_zcdy.png" alt="" style="vertical-align:middle;"  ng-show="singleUnit.type==2">
+                <img src="/images/unit_list_jydy.png" alt="" style="vertical-align:middle;"  ng-show="singleUnit.type==3">
+
+                <a href="" ng-click="addAssetUnit(singleUnit,$index)" ng-show="singleUnit.addAssetUnit">添加资产单元</a>
+                <a href="" ng-click="addTradeUnit(singleUnit,$index)" ng-show="singleUnit.addTradeUnit">添加交易单元</a>
+
+                <label ng-show="!singleUnit.addAssetUnit" style="vertical-align:middle;">{{singleUnit.id}}</label>
+
+              </div>
+
+            </td>
+            <td>{{singleUnit.name}}</td>
+
+            <td>
+              <label for="" ng-show="singleUnit.stat==0&&(!singleUnit.addAssetUnit&&!singleUnit.addTradeUnit)">可用</label>
+              <label for="" ng-show="singleUnit.stat!=0&&(!singleUnit.addAssetUnit&&!singleUnit.addTradeUnit)">冻结</label>
+
+            </td>
+            <td>
+              <a href="" ng-click="frozen(singleUnit)"    ng-show="!singleUnit.addAssetUnit&&!singleUnit.addTradeUnit&&singleUnit.stat==0" >冻结</a>
+              <a href="" ng-click="unfreeze(singleUnit)"  ng-show="!singleUnit.addAssetUnit&&!singleUnit.addTradeUnit&&singleUnit.stat==1" >解冻</a>
+              <a href="" ng-click="editUnit(singleUnit)"  ng-show="!singleUnit.addAssetUnit&&!singleUnit.addTradeUnit">修改</a>
+            </td>
+          </tr>
+
+          <tr class="unitTr">
+            <td>
+              <img src="/images/ITreeFold.png"  style="opacity:0;" ></img>
+              <img src="/images/unit_list_zcgly.png" alt="" style="vertical-align:middle;" >
+              <a href="" ng-click="addManager()">添加资产管理人</a>
+            </td>
+
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+
+
+
+  <div id="unitManageModal" class = "ui small modal csp_unitManage_modal" >
+    <div ng-include = "modalLoadPath" style="margin :auto;"></div>
+  </div>
+
+</div>
+
+<style media="screen">
+.csp_manage_header_div {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 21;
+  width: 100%;
+  height: 50px;
+  text-align: center;        /*文字水平居中对齐*/
+  line-height: 50px;
+  background-color: black;
+}
+.manageheader {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+}
+
+.aseetUnitDiv{
+  margin-left: 20px;
+}
+
+.transaUnitDiv{
+    margin-left: 60px;
+}
+.visibleHidden{
+  visibility: hidden;
+}
+
+.cursorPointer{
+  cursor: pointer;
+}
+
+.unitTr:hover{
+     background-color: #CDE3F3;
+}
+
+
+.ui.small.modal.csp_unitManage_modal {
+    width:400px;
+    min-height:200px;
+    margin-left:-200px;
+}
+
+.unitManageContent{
+  margin:10px;
+}
+
+  .findedtr{
+  background-color: #CDE3F3;
+  }
+
+</style>

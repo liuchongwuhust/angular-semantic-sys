@@ -1,0 +1,77 @@
+<div class="data-container">
+    <div class="data">
+        <div>
+          <div class="trade_team_manage_dropdown" style="float: left;">
+              <div class="ui floating labeled icon dropdown button js-trid"  style="z-index:100">
+                  <i class="dropdown icon"></i>
+                  <span  class="text chooseTrid js_trid">请选择交易单元</span>
+                  <div class="menu">
+                      <div class="item" ng-repeat="caid in model">
+                          <i class="dropdown icon"></i>
+                          <span class="text">{{ caid.title }}</span>
+                          <div class="right menu" ng-if="caid.children !== undefined">
+                              <div class="item" ng-repeat="trid in caid.children" trid="{{trid.trid}}"> {{ trid.title}} </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+            <button class="ui orange button" ng-click="addNewTeam()" style="margin-left:0;margin-right:16px;"> 新建小组 </button>
+            <button class="ui button" ng-click="refreshTeam()"> 刷新 </button>
+           <div style="float:right;display:inline;padding-top:15px;">
+             <span class="ui red tiny header" style="">单元券单市值：{{ tridUnitValue }}</span>
+           <span class="ui red tiny header" style="margin-left: 10px">单元小组总杠杆bp：{{ tridUnitHeaverBp }}</span>
+           <span class="ui red tiny header" style="margin-left: 10px;font-size:0.8em;color:gray !important;">(注意：若单元券单总市值>单元小组总杠杆bp，则无论几次分券，单元券单中总会有剩余券)</span>
+         </div>
+
+        </div>
+        <div class="table-container">
+            <table class="ui single line selectable striped table">
+                <thead id="fix-header">
+                    <tr>
+                        <th>序号</th>
+                        <th>交易单元</th>
+                        <th>小组名称</th>
+                        <th>小组人数</th>
+                        <th>小组成员</th>
+
+                        <th>小组总杠杆BP</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in teams">
+                        <td>{{$index + 1 }}</td>
+                        <td>{{item.trname}}</td>
+                        <td>{{item.gname}}</td>
+                        <td>{{item.memberNumber}}</td>
+                        <td>{{item.memberName}}</td>
+
+                        <td>{{item.bp_max}}</td>
+                        <td>
+                            <a class="js-team-modify-btn"  style="cursor:pointer" ng-click="editTeam(item.gid,item.gname)">修改</a> &nbsp;&nbsp;
+                            <a class="js-team-del-btn"  style="cursor:pointer"  ng-click="delTeam(item.gid)">删除</a> &nbsp;&nbsp;
+                            <a class="js-team-show-btn"  style="cursor:pointer" ng-click="teamDetail(item.gid,item.gname)">详情</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="ui inverted dimmer js-update-view">
+                <div class="ui text loader">正在更新界面...</div>
+            </div>
+            <div class="ui small modal js-team-del-page">
+                <i class="close icon"></i>
+                <div class="header"> 提示 </div>
+                <div class="modal-del" style="height:30px;margin:20px 20px 0 20px;">
+                    <div>
+                        继续操作将同时删除该交易单元的分券及换券数据，是否继续操作？
+                    </div>
+                </div>
+                <div class="actions lk">
+                    <div class="ui negative button" ng-click="updateModalState('js-team-del-page', 'toggle')">否 </div>
+                    <div class="ui positive right labeled icon button" ng-click="delTeamConfirm()">继续操作 <i class="checkmark icon"></i> </div>
+                </div>
+            </div>
+        </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+{
+    "warning" : "------ 不要修改这个文件   ----" ,
+    "warning" : "------ 设置 config.json ----" ,
+    "db": {
+        "host": "172.24.13.2" ,
+        "user": "csp" ,
+        "password": "csp&lhhj" ,
+        "database": "csp"
+    }
+}

@@ -1,0 +1,131 @@
+<!--/* Copyright (C) 2017 LeHigh Hongking - All Rights Reserved
+ * You may not use, distribute and modify this code for any
+ * purpose unless you receive an official authorization from
+ * ShenZhen LeHigh Hongking Technologies Co., Ltd.
+ *
+ * You should have received a copy of the license with
+ * this file. If not, please write to: admin@hongkingsystem.cn,
+ * or visit: http://hongkingsystem.cn
+ */-->
+<div id = "csp_oper_login_html" class = "csp_oper_login_html" ng-controller = "cspOperLoginCtrl" ng-init = "cspOperLoginInit()">
+	<img src="../images/operloginbg.png" class = "csp_oper_login_bg_img" onload = "cspOperLoginBgChange()">
+	<div class="csp_oper_login_form">
+		<h1 class="ui header csp_oper_login_form_header">ISON&nbspCSP</h1>
+		<h2 class="ui header csp_oper_login_form_header_2">Version&nbsp&nbsp1.13</h2>
+		<div class="ui input focus csp_oper_login_input">
+  			<input type="text" placeholder="资产管理人编号" maxlength = "32" ng-model = "loginInfo.maid">
+		</div>
+		<div class="ui input focus csp_oper_login_input">
+  			<input type="text" placeholder="操作员账号" maxlength = "32" ng-model = "loginInfo.oid">
+		</div>
+		<div class="ui input focus csp_oper_login_input" >
+  			<input type="password" placeholder="操作员密码" maxlength="16" ng-model = "loginInfo.password">
+		</div>
+		<div class="ui checkbox" style="margin-bottom:1em">
+  			<input type="checkbox" name="fun" ng-model = "loginInfo.save">
+  			<label>一周免登陆</label>
+		</div>
+		<button type="button" class = "ui button csp_oper_login_btn" ng-click = "cspOperLoginClick()">登&nbsp&nbsp录</button>
+	</div>
+	<div class="csp_oper_message_div" ng-show = "loginInfo.logining">
+		<i class="notched huge inverted blue circle loading icon" id = "operLoginLoadIcon" ng-hide = "loginInfo.error"></i>
+		<i class="huge inverted blue warning circle icon" id = "operLoginErrorIcon" ng-show = "loginInfo.error"></i>
+		<br>
+		<label class = "csp_oper_login_load_label">{{loginInfo.loadState}}</label>
+	</div>
+</div>
+<style type = "text/css">
+	@media screen and (min-width: 351px) {
+		.csp_oper_login_form {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			margin-left: -175px;
+			margin-top: -200px;
+			width: 350px;
+			border-radius: 10px;
+			background-color: rgba(245, 245, 245, 0.5);
+			height: 400px;
+			z-index: 3;
+			padding-top: 54px;
+			padding-left: 44px;
+		}
+	}
+	@media screen and (max-width: 350px) {
+		.csp_oper_login_form {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			margin-left: -175px;
+			margin-top: -200px;
+			width: 350px;
+			/*border-radius: 10px;*/
+			background-color: rgba(245, 245, 245, 0.5);
+			height: 400px;
+			z-index: 3;
+			padding-top: 54px;
+			padding-left: 44px;
+		}
+	}
+	.csp_oper_login_html {
+			width: 100%;
+			min-width: 265px;
+			z-index: 2;
+			overflow: auto;
+	}
+	.csp_oper_login_bg_img {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		x: 0;
+		y: 0;
+		z-index: 1;
+	}
+	.ui.header.csp_oper_login_form_header {
+		font: 33px arial,sans-serif;
+		color: #009cff;
+		margin-bottom: 0px;
+	}
+	.ui.header.csp_oper_login_form_header_2 {
+		margin-top: 6px;
+		font: 18px arial,sans-serif;
+		color: #7d8d98;
+		margin-bottom: 18px;
+	}
+	.ui.input.focus.csp_oper_login_input {
+		width: 262px;
+		margin-bottom: 1em;
+	}
+	.ui.button.csp_oper_login_btn {
+		width: 262px;
+		height: 39px;
+		background-color: #009dfe;
+		color: white;
+	}
+	.csp_oper_message_div {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		margin-left: -175px;
+		margin-top: -200px;
+		width: 350px;
+		border-radius: 10px;
+		background-color: rgba(250, 250, 250, 0);
+		height: 400px;
+		z-index: 4;
+		text-align: center;
+	}
+	#operLoginLoadIcon {
+		margin-top: 150px;
+		margin-bottom: 10px;
+	}
+	.csp_oper_login_load_label {
+		color: red;
+		font-size: 15px;
+		font-weight: bold;
+	}
+	#operLoginErrorIcon {
+		margin-top: 150px;
+		margin-bottom: 10px;
+	}
+</style>

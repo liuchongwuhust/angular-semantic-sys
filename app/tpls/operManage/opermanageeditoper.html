@@ -1,0 +1,452 @@
+<!--/* Copyright (C) 2017 LeHigh Hongking - All Rights Reserved
+ * You may not use, distribute and modify this code for any
+ * purpose unless you receive an official authorization from
+ * ShenZhen LeHigh Hongking Technologies Co., Ltd.
+ *
+ * You should have received a copy of the license with
+ * this file. If not, please write to: admin@hongkingsystem.cn,
+ * or visit: http://hongkingsystem.cn
+ */-->
+ <div class="csp_oper_manage_editoper_div">
+	 <div class="ui huge breadcrumb">
+   		<a class="section" ng-click = "cspOperManageBack()">操作员管理</a>
+		<i class="right chevron icon divider"></i>
+  		<div class="active section">编辑操作员</div>
+ 	</div>
+	<div class = "csp_oper_manage_editoper_body" >
+		<div id="csp_oper_manage_basic_info_div">
+			<h3 class = "ui header" style = "color: blue">基本信息</h3>
+			<label class = "csp_oper_manage_left_label">资产管理人</label>
+			<div class="ui input csp_oper_manage_normal_input">
+				<input type="text" readonly="readonly" value = "{{editOper.maid + '-' + editOper.maname}}">
+			</div>
+			<br><br>
+			<label class = "csp_oper_manage_left_label">操作员账号</label>
+			<div class="ui input csp_oper_manage_normal_input">
+				<input type="text" readonly="readonly"  ng-model = "editOper.oid" >
+			</div>
+			<br><br>
+            <label class = "csp_oper_manage_left_label">操作员姓名</label>
+			<div class="ui input csp_oper_manage_normal_input">
+				<input type="text" placeholder="请输入操作员姓名" maxlength = "32" ng-model = "editOper.oname" >
+			</div>
+			<label class = "csp_oper_manage_editoper_tips_label" >*</label>
+			<br><br>
+			<!-- <label class = "csp_oper_manage_left_label">操作员密码</label>
+			<div class="ui input csp_oper_manage_normal_input">
+				<input type="password" placeholder="请输入操作员密码" maxlength = "16" ng-model = "editOper.opass" ng-blur = "cspOperManageEditOperOpassBlur()">
+			</div>
+			<label class = "csp_oper_manage_editoper_tips_label" ng-hide = "editOper.opassShowTip">*</label>
+            <i class="big green check circle outline icon" ng-show = "editOper.opassShowTip == true && editOper.opassError == false"></i>
+            <i class="big red remove circle outline icon" ng-show = "editOper.opassShowTip == true && editOper.opassError == true" title="{{editOper.opassErrorString}}"></i>
+			<br><br> -->
+			<label class = "csp_oper_manage_left_label">手机号码</label>
+			<div class="ui input csp_oper_manage_normal_input">
+				<input type="text" placeholder="请输入手机号码" maxlength = "11" ng-model = "editOper.phone" ng-blur = "cspOperManageEditOperPhoneBlur()">
+			</div>
+            <i class="big green check circle outline icon" ng-show = "editOper.phoneShowTip == true && editOper.phoneError == false"></i>
+            <i class="big red remove circle outline icon" ng-show = "editOper.phoneShowTip == true && editOper.phoneError == true" title="{{editOper.phoneErrorString}}"></i>
+			<br><br>
+			<label class = "csp_oper_manage_left_label">邮箱地址</label>
+			<div class="ui input csp_oper_manage_normal_input">
+				<input type="text" placeholder="请输入邮箱" maxlength = "32" ng-model = "editOper.email" ng-blur = "cspOperManageEditOperEmailBlur()">
+			</div>
+            <i class="big green check circle outline icon" ng-show = "editOper.emailShowTip == true && editOper.emailError == false"></i>
+            <i class="big red remove circle outline icon" ng-show = "editOper.emailShowTip == true && editOper.emailError == true" title="{{editOper.emailErrorString}}"></i>
+			<br><br>
+			<label class = "csp_oper_manage_left_label">身份证号码</label>
+			<div class="ui input csp_oper_manage_normal_input">
+				<input type="text" placeholder="请输入身份证号码" maxlength = "18" ng-model = "editOper.idcard" ng-blur = "cspOperManageEditOperIdcardBlur()">
+			</div>
+            <i class="big green check circle outline icon" ng-show = "editOper.idcardShowTip == true && editOper.idcardError == false"></i>
+            <i class="big red remove circle outline icon" ng-show = "editOper.idcardShowTip == true && editOper.idcardError == true" title="{{editOper.idcardErrorString}}"></i>
+			<br><br>
+			<label class = "csp_oper_manage_left_label">启用状态</label>
+            <div class="ui input csp_oper_manage_normal_input">
+				<input type="text" readonly = "readonly" value = "{{ editOper.stat == '0' ? '可用' : '冻结'}}" >
+			</div>
+			<br><br>
+			<button type="button" class = "ui orange button" id = "csp_oper_manage_editoper_save_btn" ng-click = "cspOperManageEditOperSave()">保存</button>
+			<button type="button" class = "ui teal button" id = "csp_oper_manage_editoper_cancel_btn" ng-click = "cspOperManageBack()">取消</button>
+			<br><br>
+		</div>
+		<div id="csp_oper_manage_help_info_div">
+			<h3 class = "ui header" style = "color: blue">注意事项</h3>
+			<label class = "csp_oper_manage_editoper_sub_header">为了您能更快熟悉编辑操作员规则，请阅读以下帮助信息</label>
+			<br><br>
+			<p>一、资产管理人：只读；</p>
+			<p>二、操作员账号：只读；</p>
+			<p>三、操作员姓名：必填，用户输入；</p>
+			<p>四、手机号码：选填，用户输入。若填写须满足手机号码规则。</p>
+			<p>五、邮箱地址：选填，用户输入。若填写须满足邮箱地址规则。</p>
+			<p>六、身份证号码：选填，用户输入。若填写须满足身份证号码规则。</p>
+			<p>七、启用状态：只读。</p>
+            <br><br>
+		</div>
+        <div class = "csp_oper_manage_editoper_loading_div" ng-show = "editOper.loading">
+            <i class="notched huge inverted blue circle loading icon" id = "csp_oper_manage_editoper_save_loadingIcon" ng-hide = "editOper.error"></i>
+    		<i class="huge inverted blue warning circle icon" id = "csp_oper_manage_editoper_save_errorIcon" ng-show = "editOper.error"></i>
+    		<br>
+    		<label class = "csp_oper_manage_editoper_load_label">{{editOper.errorString}}</label>
+        </div>
+	</div>
+ </div>
+ <style type = "text/css">
+ 	@media screen and (min-width: 801px) {
+		#csp_oper_manage_basic_info_div {
+			width: 600px;
+			border: solid 1px #e1e1e1;
+			border-radius: 10px;
+			padding-left: 10px;
+			padding-top: 10px;
+			min-height: 100%;
+		}
+        .csp_oper_manage_editoper_loading_div {
+            position: fixed;
+            top:90px;
+            left: 10px;
+            bottom: 10px;
+            width: 600px;
+            right: auto;
+            z-index: 3001;
+            border-radius: 10px;
+    		background-color: rgba(250, 250, 250, 0);
+            text-align: center;
+        }
+		.csp_oper_manage_left_label {
+			width: 80px;
+			text-align: right;
+			display:inline-block;
+			margin-right: 10px;
+			margin-left: 50px;
+		}
+		.ui.input.csp_oper_manage_normal_input {
+			margin-top: 0;
+			width: 325px;
+		}
+		.ui.selection.dropdown.csp_oper_manage_editope_dropdown {
+			margin-top: 0;
+			width: 325px;
+		}
+		#csp_oper_manage_editoper_save_btn {
+			margin-left: 125px;
+		}
+		#csp_oper_manage_editoper_cancel_btn {
+			margin-left: 100px;
+		}
+		#csp_oper_manage_help_info_div {
+			position: absolute;
+			left:620px;
+			top: 10px;
+			right: 10px;
+			height: calc(100% - 20px);
+			border: solid 1px #e1e1e1;
+			border-radius: 10px;
+			overflow-y: auto;
+			padding-left: 10px;
+			padding-top: 10px;
+			padding-right: 10px;
+		}
+	}
+	@media screen and (max-width: 800px) {
+        #csp_oper_manage_basic_info_div {
+			width: 600px;
+			border: solid 1px #e1e1e1;
+			border-radius: 10px;
+			padding-left: 10px;
+			padding-top: 10px;
+			min-height: 100%;
+		}
+        .csp_oper_manage_editoper_loading_div {
+            position: fixed;
+            top:90px;
+            left: 10px;
+            bottom: 10px;
+            width: 600px;
+            right: auto;
+            z-index: 3001;
+            border-radius: 10px;
+    		background-color: rgba(250, 250, 250, 0);
+            text-align: center;
+        }
+		.csp_oper_manage_left_label {
+			width: 80px;
+			text-align: right;
+			display:inline-block;
+			margin-right: 10px;
+			margin-left: 50px;
+		}
+		.ui.input.csp_oper_manage_normal_input {
+			margin-top: 0;
+			width: 325px;
+		}
+		.ui.selection.dropdown.csp_oper_manage_editope_dropdown {
+			margin-top: 0;
+			width: 325px;
+		}
+		#csp_oper_manage_editoper_save_btn {
+			margin-left: 125px;
+		}
+		#csp_oper_manage_editoper_cancel_btn {
+			margin-left: 100px;
+		}
+		#csp_oper_manage_help_info_div {
+			border: solid 1px #e1e1e1;
+			border-radius: 10px;
+			padding-left: 10px;
+			padding-top: 10px;
+			margin-top: 10px;
+            width: 600px;
+			padding-right: 10px;
+		}
+	}
+	@media screen and (max-width: 600px) {
+		#csp_oper_manage_basic_info_div {
+			border: solid 1px #e1e1e1;
+			border-radius: 10px;
+			padding-left: 10px;
+			padding-top: 10px;
+            width: 100%;
+		}
+        .csp_oper_manage_editoper_loading_div {
+            position: fixed;
+            top:90px;
+            left: 10px;
+            bottom: 10px;
+            width: auto;
+            right: 10px;
+            z-index: 3001;
+            border-radius: 10px;
+    		background-color: rgba(250, 250, 250, 0);
+            text-align: center;
+        }
+		.csp_oper_manage_left_label {
+			width: 80px;
+			text-align: right;
+			display:inline-block;
+			margin-right: 10px;
+			margin-left: 0;
+		}
+		.ui.input.csp_oper_manage_normal_input {
+			margin-top: 0;
+			width: 325px;
+		}
+		.ui.selection.dropdown.csp_oper_manage_editope_dropdown {
+			margin-top: 0;
+			width: 325px;
+		}
+		#csp_oper_manage_editoper_save_btn {
+			margin-left: 50px;
+		}
+		#csp_oper_manage_editoper_cancel_btn {
+			margin-left: 100px;
+		}
+		#csp_oper_manage_help_info_div {
+			border: solid 1px #e1e1e1;
+			border-radius: 10px;
+			padding-left: 10px;
+			padding-top: 10px;
+			margin-top: 10px;
+			padding-right: 10px;
+            width: 100%;
+		}
+	}
+	@media screen and (max-width: 500px) {
+		#csp_oper_manage_basic_info_div {
+			border: solid 1px #e1e1e1;
+			border-radius: 10px;
+			padding-left: 10px;
+			padding-top: 10px;
+            width: 100%;
+		}
+        .csp_oper_manage_editoper_loading_div {
+            position: fixed;
+            top:90px;
+            left: 10px;
+            bottom: 10px;
+            width: auto;
+            right: 10px;
+            z-index: 3001;
+            border-radius: 10px;
+    		background-color: rgba(250, 250, 250, 0);
+            text-align: center;
+        }
+		.csp_oper_manage_left_label {
+			width: 80px;
+			text-align: right;
+			display:inline-block;
+			margin-right: 10px;
+			margin-left: 0;
+		}
+		.ui.input.csp_oper_manage_normal_input {
+			margin-top: 0;
+			width: 225px;
+		}
+		.ui.selection.dropdown.csp_oper_manage_editope_dropdown {
+			margin-top: 0;
+			width: 225px;
+		}
+		#csp_oper_manage_editoper_save_btn {
+			margin-left: 50px;
+		}
+		#csp_oper_manage_editoper_cancel_btn {
+			margin-left: 50px;
+		}
+		#csp_oper_manage_help_info_div {
+			border: solid 1px #e1e1e1;
+			border-radius: 10px;
+			padding-left: 10px;
+			padding-top: 10px;
+			margin-top: 10px;
+			padding-right: 10px;
+            width: 100%;
+		}
+	}
+	@media screen and (max-width: 400px) {
+		#csp_oper_manage_basic_info_div {
+			border: solid 1px #e1e1e1;
+			border-radius: 10px;
+			padding-left: 10px;
+			padding-top: 10px;
+            width: 100%;
+		}
+        .csp_oper_manage_editoper_loading_div {
+            position: fixed;
+            top:90px;
+            left: 10px;
+            bottom: 10px;
+            width: auto;
+            right: 10px;
+            z-index: 3001;
+            border-radius: 10px;
+    		background-color: rgba(250, 250, 250, 0);
+            text-align: center;
+        }
+		.csp_oper_manage_left_label {
+			width: 80px;
+			text-align: left;
+			display:block;
+			margin-right: 10px;
+			margin-left: 0;
+		}
+		.ui.input.csp_oper_manage_normal_input {
+			margin-top: 5px;
+			width: 225px;
+		}
+		.ui.selection.dropdown.csp_oper_manage_editope_dropdown {
+			margin-top: 5px;
+			width: 225px;
+		}
+		#csp_oper_manage_editoper_save_btn {
+			margin-left: 20px;
+		}
+		#csp_oper_manage_editoper_cancel_btn {
+			margin-left: 20px;
+		}
+		#csp_oper_manage_help_info_div {
+			border: solid 1px #e1e1e1;
+			border-radius: 10px;
+			padding-left: 10px;
+			padding-top: 10px;
+			margin-top: 10px;
+			padding-right: 10px;
+            width: 100%;
+		}
+	}
+	@media screen and (max-width: 300px) {
+		#csp_oper_manage_basic_info_div {
+			border: solid 1px #e1e1e1;
+			border-radius: 10px;
+			padding-left: 10px;
+			padding-top: 10px;
+            width: 100%;
+		}
+        .csp_oper_manage_editoper_loading_div {
+            position: fixed;
+            top:90px;
+            left: 10px;
+            bottom: 10px;
+            width: auto;
+            right: 10px;
+            z-index: 3001;
+            border-radius: 10px;
+    		background-color: rgba(250, 250, 250, 0);
+            text-align: center;
+        }
+		.csp_oper_manage_left_label {
+			width: 80px;
+			text-align: left;
+			display:block;
+			margin-right: 10px;
+			margin-left: 0;
+		}
+		.ui.input.csp_oper_manage_normal_input {
+			margin-top: 5px;
+			width: 200px;
+		}
+		.ui.selection.dropdown.csp_oper_manage_editope_dropdown {
+			margin-top: 5px;
+			width: 200px;
+		}
+		#csp_oper_manage_editoper_save_btn {
+			margin-left: 10px;
+		}
+		#csp_oper_manage_editoper_cancel_btn {
+			margin-left: 20px;
+		}
+		#csp_oper_manage_help_info_div {
+			border: solid 1px #e1e1e1;
+			border-radius: 10px;
+			padding-left: 10px;
+			padding-top: 10px;
+			margin-top: 10px;
+			padding-right: 10px;
+            width: 100%;
+		}
+	}
+ 	.csp_oper_manage_editoper_div {
+		padding-top: 10px;
+		padding-left: 10px;
+		padding-right: 10px;
+		position: absolute;
+		top: 50px;
+		left:0;
+		right: 0;
+		bottom: 0;
+	}
+	.csp_oper_manage_editoper_body {
+		position: absolute;
+		top: 40px;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		overflow: auto;
+		padding-left: 10px;
+		padding-right: 10px;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		min-width: 300px;
+	}
+	.csp_oper_manage_editoper_sub_header {
+		margin-left: 20px;
+		color: red;
+	}
+	.csp_oper_manage_editoper_tips_label {
+		color: red;
+		font-size: 20px;
+		margin-left: 5px;
+	}
+    #csp_oper_manage_editoper_save_loadingIcon {
+        margin-top: 150px;
+		margin-bottom: 10px;
+    }
+    #csp_oper_manage_editoper_save_errorIcon {
+        margin-top: 150px;
+		margin-bottom: 10px;
+    }
+    .csp_oper_manage_editoper_load_label {
+		color: red;
+		font-size: 15px;
+		font-weight: bold;
+	}
+ </style>

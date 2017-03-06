@@ -1,0 +1,131 @@
+<!--/* Copyright (C) 2017 LeHigh Hongking - All Rights Reserved
+ * You may not use, distribute and modify this code for any
+ * purpose unless you receive an official authorization from
+ * ShenZhen LeHigh Hongking Technologies Co., Ltd.
+ *
+ * You should have received a copy of the license with
+ * this file. If not, please write to: admin@hongkingsystem.cn,
+ * or visit: http://hongkingsystem.cn
+ */-->
+ <div class = "csp_group_change_readnews_html">
+	 <div class = "csp_group_change_readnews_body">
+		 <h4 class="ui blue header">换券请求</h4>
+		 <div class = "csp_group_change_news_list">
+			 <div class = "csp_group_change_readnews_cell" ng-repeat = "en in exchangeNews">
+				<nobr>
+					<label class = "csp_group_change_readnews_name_label">{{en.gname}}</label>
+					<label class = "csp_group_change_readnews_normal_label">想用</label>
+					<label class = "csp_group_change_readnews_ask_label">
+						{{en.ask_cname + "("+en.ask_volume+"，"+en.ask_value+")"}}
+					</label>
+					<label class = "csp_group_change_readnews_normal_label">向你换取</label>
+					<label class = "csp_group_change_readnews_asked_label">
+						{{en.asked_cname + "("+en.asked_volume+"，"+en.asked_value+")"}}
+					</label>
+					<button type="button" class = "ui mini orange button csp_group_change_orange_btn">
+						<i class="checkmark icon"></i>同意
+					</button>
+					<button type="button" class = "ui mini teal button csp_group_change_teal_btn">
+						<i class="remove icon"></i>拒绝
+					</button>
+					<span style="display:inline-block;width:10px;"></span>
+			    </nobr>
+			 </div>
+		 </div>
+		 <button type="button" class = "ui mini blue button" ng-click = "cspGroupExchangeHideModal()" id = "csp_group_change_cancel_btn">暂不处理</button>
+	 </div>
+	 <div class = "csp_group_change_readnews_loading_div" ng-show = "loadinginfo.loading">
+		 <i class="big notched inverted blue circle loading icon" id = "csp_group_change_readnews_loadingIcon" ng-hide = "loadinginfo.error"></i>
+		 <i class="big inverted blue warning circle icon" id = "csp_group_change_readnews_errorIcon" ng-show = "loadinginfo.error"></i>
+		 <br>
+		 <label class = "csp_group_change_readnews_load_label">{{loadinginfo.errorString}}</label>
+	 </div>
+ </div>
+ <style type = "text/css">
+	.csp_group_change_readnews_html {
+		position: fixed;
+		left: 0;
+		top: 50px;
+		bottom: 0;
+		right: 0;
+		background-color: rgba(40,40,40,0.2);
+		z-index: 3001;
+	}
+	.csp_group_change_readnews_body {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		margin-left: -360px;
+		margin-top: -170px;
+		width: 720px;
+		height: 340px;
+		background-color: white;
+		border-radius:10px;
+		padding: 10px;
+	}
+	.csp_group_change_news_list {
+		width: 700px;
+		height: 250px;
+		overflow: auto;
+		border: solid 1px rgba(34,36,38,0.15);
+	}
+	#csp_group_change_cancel_btn {
+		margin-top: 10px;
+		margin-left: 305px;
+	}
+	.csp_group_change_readnews_loading_div {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		margin-left: -3600px;
+		margin-top: -170px;
+		width: 720px;
+		height: 340px;
+		background-color: rgba(250, 250, 250,0);
+		border-radius:10px;
+		padding: 10px;
+		text-align: center;
+		z-index: 3002;
+	}
+	.csp_group_change_readnews_cell {
+		width: 100%;
+		height: 50px;
+		padding-left: 10px;
+		padding-top: 10px;
+		border-bottom: solid 1px rgba(34,36,38,0.15);
+	}
+	.csp_group_change_readnews_name_label {
+		margin-right: 10px;
+		color: red;
+	}
+	.csp_group_change_readnews_normal_label {
+		margin-right: 10px;
+	}
+	.csp_group_change_readnews_ask_label {
+		margin-right: 10px;
+		color: blue;
+	}
+	.csp_group_change_readnews_asked_label {
+		margin-right: 10px;
+		color: teal;
+	}
+	.ui.mini.orange.button.csp_group_change_orange_btn {
+		margin-left: 20px;
+	}
+	.ui.mini.orange.button.csp_group_change_teal_btn {
+		margin-right: 20px;
+	}
+	#csp_group_change_readnews_loadingIcon {
+		margin-top: 135px;
+		margin-bottom: 10px;
+	}
+	#csp_group_change_readnews_errorIcon {
+		margin-top: 135px;
+		margin-bottom: 10px;
+	}
+	.csp_group_change_readnews_load_label {
+		color: red;
+		font-size: 15px;
+		font-weight: bold;
+	}
+ </style>

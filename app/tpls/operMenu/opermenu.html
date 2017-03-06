@@ -1,0 +1,118 @@
+<!--/* Copyright (C) 2017 LeHigh Hongking - All Rights Reserved
+ * You may not use, distribute and modify this code for any
+ * purpose unless you receive an official authorization from
+ * ShenZhen LeHigh Hongking Technologies Co., Ltd.
+ *
+ * You should have received a copy of the license with
+ * this file. If not, please write to: admin@hongkingsystem.cn,
+ * or visit: http://hongkingsystem.cn
+ */-->
+<div id = "cspOperManageMenuHtml" class="csp_oper_manage_menu_html" ng-controller = "cspOperManageMenuCtrl" ng-init = "cspOperManageMenuInit()">
+	<div class="csp_oper_manage_mini_menu" ng-hide = "showMenu" ng-click = "cspOperMenuShowMenu()" title = "展开菜单">
+		  <a lfttop=window,10 class="btn-sidebar ui button circular icon" ><i class="sidebar icon"></i></a>
+	</div>
+	<div class="csp_oper_manage_menu_left" ng-show = "showMenu">
+		<div class="ui vertical menu csp_allocate_menu" style="padding-top:20px;">
+			<div class="item" style="margin-top:10px;">
+       <div class="header">单元管理</div>
+       <div class="menu " style="margin-left:5px;">
+
+         <a class="item"  ng-click="" href="index2.html#/unitManage">
+           单元管理
+         </a>
+
+         <a class="item"  href="index2.html#/tradeTeamManage">
+         	交易小组管理
+         </a>
+
+         <a class="item"  href = "index2.html#/opermanage">
+           操作员管理
+         </a>
+
+
+       </div>
+     </div>
+		 <div class="item" style="margin-top:10px;">
+      <div class="header">分券管理</div>
+      <div class="menu " style="margin-left:5px;">
+				<a class="item"  href="index2.html#/importStockData">
+          导券
+        </a>
+        <a class="item"  href="index2.html#/wishList">
+          心愿清单
+        </a>
+        <a class="item"  href="index2.html#/random">
+          随机分券
+        </a>
+        <a class="item" href = "index2.html#/groupexchange">
+          组间换券
+        </a>
+
+      </div>
+    </div>
+
+		<div class="item" style="margin-top:10px;">
+		 <div class="header">系统功能</div>
+		 <div class="menu " style="margin-left:5px;">
+			 <a class="item"  ng-click="">
+				 修改密码
+			 </a>
+			 <a class="item"  href = "index2.html#/operloginout">
+				退出登录
+			 </a>
+
+		 </div>
+	 </div>
+
+		</div>
+	</div>
+	<div class="csp_oper_manage_menu_right" ng-show = "showMenu" ng-click = "cspOperMenuHideMenu()"></div>
+</div>
+<style type = "text/css">
+	.csp_oper_manage_menu_html {
+		position: fixed;
+		top:0;
+		left: 0;
+		width: 50px;
+		height: 50px;
+		z-index: 4001;
+	}
+	.csp_oper_manage_menu_left {
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		top: 50px;
+		width: 210px;
+		overflow-y: auto;
+		overflow-x: hidden;
+		background-color: inherit;
+	}
+	.csp_oper_manage_menu_right {
+		margin-left: 210px;
+		background-color: rgba(40,40,40,0.2);
+		min-height: 100%;
+	}
+	.csp_oper_manage_mini_menu {
+		width: 40px;
+		height: 40px;
+
+		border-radius: 20px;
+		/*padding-left: 4px;*/
+		padding-top: 6px;
+		cursor: pointer;
+		margin-left: 10px;
+		margin-top: 5px;
+	}
+	.csp_allocate_menu{
+	  width: 120px;
+	  height: calc(100% - 50px);
+	  position: fixed;
+	  left: 0;
+	  top: 50px;
+	  z-index: 3001;
+	  margin-top: 0px !important;
+	}
+	.ui.vertical.menu .item{
+		margin-top: 5px;
+	}
+</style>

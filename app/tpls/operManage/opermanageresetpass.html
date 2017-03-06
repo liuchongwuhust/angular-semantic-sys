@@ -1,0 +1,82 @@
+<!--/* Copyright (C) 2017 LeHigh Hongking - All Rights Reserved
+ * You may not use, distribute and modify this code for any
+ * purpose unless you receive an official authorization from
+ * ShenZhen LeHigh Hongking Technologies Co., Ltd.
+ *
+ * You should have received a copy of the license with
+ * this file. If not, please write to: admin@hongkingsystem.cn,
+ * or visit: http://hongkingsystem.cn
+ */-->
+<div class="csp_oper_manage_resetpass_body">
+	<h4 class="ui blue header">重置密码</h4>
+	<br>
+	<label class = "csp_oper_manage_resetpass_header_label">新密码</label>
+	<div class="ui input focus">
+		<input type="password" placeholder="请设定密码" maxlength="16" ng-model = "resetOperInfo.opass">
+	</div>
+	<br><br>
+	<label class = "csp_oper_manage_resetpass_header_label">确认密码</label>
+	<div class="ui input focus">
+		<input type="password" placeholder="请再次输入密码" maxlength="16" ng-model = "resetOperInfo.opassrep">
+	</div>
+	<br><br>
+	<button type="button" class = "ui orange button" id = "csp_oper_manage_resetpass_save_btn" ng-click = "cspOperManageResetPassSure()">确定</button>
+	<button type="button" class = "ui teal button" id = "csp_oper_manage_resetpass_cancel_btn" ng-click = "cspOperManageHideReset()">取消</button>
+	<div class="csp_oper_manage_resetpass_loading_div" ng-show = "resetOperInfo.loading">
+		<i class="notched big inverted blue circle loading icon" id = "csp_oper_manage_resetpass_save_loadingIcon" ng-hide = "resetOperInfo.error"></i>
+		<i class="big inverted blue warning circle icon" id = "csp_oper_manage_resetpass_save_errorIcon" ng-show = "resetOperInfo.error"></i>
+		<br>
+		<label class = "csp_oper_manage_resetpass_load_label">{{resetOperInfo.errorString}}</label>
+	</div>
+</div>
+<style type = "text/css">
+.csp_oper_manage_resetpass_body {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -150px;
+	margin-top: -125px;
+	width: 300px;
+	height: 250px;
+	border-radius: 10px;
+	background-color: white;
+	padding-left: 10px;
+	padding-top: 10px;
+}
+.csp_oper_manage_resetpass_header_label {
+	width: 70px;
+	display: inline-block;
+	text-align: right;
+	padding-right: 10px;
+}
+#csp_oper_manage_resetpass_save_btn {
+	margin-left: 50px;
+}
+#csp_oper_manage_resetpass_cancel_btn {
+	margin-left: 25px;
+}
+.csp_oper_manage_resetpass_loading_div {
+	position: absolute;
+	top:0;
+	left: 0;
+	width: 300px;
+	height: 250px;
+	background-color: rgba(250, 250, 250,0);
+	text-align: center;
+	border-radius: 10px;
+	z-index: 3002;
+}
+#csp_oper_manage_resetpass_save_loadingIcon {
+	margin-top: 75px;
+	margin-bottom: 10px;
+}
+#csp_oper_manage_resetpass_save_errorIcon {
+	margin-top: 75px;
+	margin-bottom: 10px;
+}
+.csp_oper_manage_resetpass_load_label {
+	color: red;
+	font-size: 15px;
+	font-weight: bold;
+}
+</style>

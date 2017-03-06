@@ -1,0 +1,41 @@
+<!--/* Copyright (C) 2017 LeHigh Hongking - All Rights Reserved
+ * You may not use, distribute and modify this code for any
+ * purpose unless you receive an official authorization from
+ * ShenZhen LeHigh Hongking Technologies Co., Ltd.
+ *
+ * You should have received a copy of the license with
+ * this file. If not, please write to: admin@hongkingsystem.cn,
+ * or visit: http://hongkingsystem.cn
+ */-->
+<div class="csp_oper_manage_index_html" ng-controller = "cspOperManageCtrl" ng-init = "cspOperManageInit()">
+	<div class="csp_oper_manage_header_div">
+		<label class = "csp_oper_manage_header_label">CSP分券管理系统</label>
+	</div>
+	<div style = "height: 50px"></div>
+	<div ng-include = "'../tpls/operMenu/opermenu.html'"></div>
+	<div class="csp_oper_manage_body" ng-include = "menupath" onload = "cspOperManageLoadReady()"></div>
+</div>
+<style type = "text/css">
+	.csp_oper_manage_index_html {
+		width: 100%;
+	}
+	.csp_oper_manage_header_div {
+		position: fixed;
+		left: 0;
+		top: 0;
+		z-index: 3001;
+		width: 100%;
+		height: 50px;
+		text-align: center;        /*文字水平居中对齐*/
+    	line-height: 50px;
+		background-color: black;
+	}
+	.csp_oper_manage_header_label {
+		font-size: 20px;
+		font-weight: bold;
+		color: white;
+	}
+	.csp_oper_manage_body {
+		min-height: calc(100% - 50px)
+	}
+</style>

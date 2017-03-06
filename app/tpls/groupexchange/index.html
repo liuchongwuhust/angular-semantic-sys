@@ -1,0 +1,38 @@
+<!--/* Copyright (C) 2017 LeHigh Hongking - All Rights Reserved
+ * You may not use, distribute and modify this code for any
+ * purpose unless you receive an official authorization from
+ * ShenZhen LeHigh Hongking Technologies Co., Ltd.
+ *
+ * You should have received a copy of the license with
+ * this file. If not, please write to: admin@hongkingsystem.cn,
+ * or visit: http://hongkingsystem.cn
+ */-->
+<div class = "csp_group_change_index_html" ng-controller = "cspGroupExchangeCtrl" ng-init = "cspGroupExchangeInit()">
+	<div class="csp_group_change_header_div">
+		<label class = "csp_group_change_header_label">CSP分券管理系统</label>
+	</div>
+	<div ng-include = "'../tpls/operMenu/opermenu.html'"></div>
+	<div ng-include = "groupchangepath" onload = "cspGroupExchangeLoadReady()"></div>
+	<div ng-include = "groupchangemodalpath" ng-show = "showmodal" onload = "cspGroupexchangeModalLoad()"></div>
+</div>
+<style type = "text/css">
+	.csp_group_change_index_html {
+		width: 100%;
+	}
+	.csp_group_change_header_div {
+		position: fixed;
+		left: 0;
+		top: 0;
+		z-index: 3001;
+		width: 100%;
+		height: 50px;
+		text-align: center;        /*文字水平居中对齐*/
+    	line-height: 50px;
+		background-color: black;
+	}
+	.csp_group_change_header_label {
+		font-size: 20px;
+		font-weight: bold;
+		color: white;
+	}
+</style>
