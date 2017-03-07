@@ -1,0 +1,8 @@
+node_modules/
+bower_components/
+javascript/
+.git/
+config/
+/config/config.default.json
+files/
+editfiles/
